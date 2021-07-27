@@ -36,6 +36,7 @@ const World = () => {
     backgroundImageUrl="/night-sky.png"
 
     hexBinPointsData={popData}
+    hexLabel={d => d.label}
     hexBinPointWeight="pop"
     hexAltitude={d => d.sumWeight * 6e-8}
     hexBinResolution={4}
