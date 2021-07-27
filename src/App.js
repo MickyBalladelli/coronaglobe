@@ -27,14 +27,18 @@ function App() {
   })
 
   return (
+    <World/>
+    /*
     <div className="App">
       <header className="App-header">
         <img src={logo} className="animated-logo" alt="logo" />
         <France departements={[75, 89, 21, 33, 47, 74, "2a", 976]} />
 
-        <World/>
+        
       </header>
     </div>
+    */
+    
   )
 }
 
