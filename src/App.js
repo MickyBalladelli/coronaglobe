@@ -2,7 +2,7 @@ import logo from './logo.svg'
 import './App.css'
 import { csvToArray } from './utils/utils.js'
 import France from './react-departements/France'
-import World from './Globe/world'
+import World from './Globe/World'
 function App() {
 
   fetch('/data/19a91d64-3cd3-42fc-9943-d635491a4d76')
