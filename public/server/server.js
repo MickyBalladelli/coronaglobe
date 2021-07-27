@@ -1,7 +1,11 @@
+// to use:
+// node build/server/server.js
+
 // include dependencies
 const express = require('express')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 const morgan = require("morgan")
+const path = require('path')
 
 // mount `exampleProxy` in web server
 const app = express()
@@ -16,5 +20,6 @@ app.use('/data', morgan('dev'), createProxyMiddleware({
         [`^/data`]: '',
     },
  }))
-
-app.listen(3000)
+console.log(path.join(__dirname, '..'))
+ app.use('/', morgan('dev'), express.static(path.join(__dirname, '..')))
+ app.listen(3000)
