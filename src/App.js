@@ -17,7 +17,15 @@ function App() {
       const csv = csvToArray(data)
     })
   })
-  
+
+  fetch('/owid/owid-covid-latest.json')
+  .then(response => {
+    return response.json()
+  })
+  .then(data => {
+    console.log(data)
+  })
+
   return (
     <div className="App">
       <header className="App-header">

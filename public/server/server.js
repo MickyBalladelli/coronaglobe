@@ -10,6 +10,8 @@ const app = express()
 
 const SERVICE_URL = 'https://www.data.gouv.fr/fr/datasets/r'
 const STATIC_DATA = 'https://static.data.gouv.fr'
+const OWID_DATA = 'https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/latest'
+
 // Proxy endpoints
 app.use('/data', morgan('dev'), createProxyMiddleware({
   target: SERVICE_URL,
@@ -23,6 +25,14 @@ app.use('/staticdata', morgan('dev'), createProxyMiddleware({
   changeOrigin: true,
   pathRewrite: {
     [`^/staticdata`]: '',
+  },
+}))
+
+app.use('/owid', morgan('dev'), createProxyMiddleware({
+  target: OWID_DATA,
+  changeOrigin: true,
+  pathRewrite: {
+    [`^/owid`]: '',
   },
 }))
 
