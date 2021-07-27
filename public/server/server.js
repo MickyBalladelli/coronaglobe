@@ -14,12 +14,12 @@ const SERVICE_URL = 'https://www.data.gouv.fr/fr/datasets/r/19a91d64-3cd3-42fc-9
 
 // Proxy endpoints
 app.use('/data', morgan('dev'), createProxyMiddleware({
-    target: SERVICE_URL,
-    changeOrigin: true,
-    pathRewrite: {
-        [`^/data`]: '',
-    },
- }))
-console.log(path.join(__dirname, '..'))
- app.use('/', morgan('dev'), express.static(path.join(__dirname, '..')))
- app.listen(3000)
+  target: SERVICE_URL,
+  changeOrigin: true,
+  pathRewrite: {
+    [`^/data`]: '',
+  },
+}))
+
+app.use('/', morgan('dev'), express.static(path.join(__dirname, '..')))
+app.listen(3000)
