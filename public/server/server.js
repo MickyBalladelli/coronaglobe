@@ -10,6 +10,8 @@ const app = express()
 
 const SERVICE_URL = 'https://www.data.gouv.fr/fr/datasets/r'
 const STATIC_DATA = 'https://static.data.gouv.fr'
+
+// from https://github.com/owid/covid-19-data
 const OWID_DATA = 'https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/latest'
 
 // Proxy endpoints
