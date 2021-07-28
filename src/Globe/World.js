@@ -2,27 +2,12 @@ import { useState, useEffect, useRef } from 'react'
 import Globe from 'react-globe.gl'
 import { csvToArray } from '../utils/utils.js'
 
-const worldData = [
-  {
-    country: 'France',
-    lat: 49.012798,
-    lng: 2.55,
-    value: 50000,
-  },
-  {
-    country: 'Spain',
-    lat: 40.471926,
-    lng: -3.56264,
-    value: 32000,
-  },
-]
-const World = () => {
+// values for prop filterBy can be total_cases, new_cases, total_deaths, new_deaths, icu_patients, hosp_patients
+const World = (filterBy="total_cases") => {
   const globeEl = useRef()
   const [places, setPlaces] = useState([])
-  const [airports, setAirports] = useState([])
   const [covid, setCovid] = useState([])
   
-  const COUNTRY = 'United States'
   const OPACITY = 0.22
 
   useEffect(() => {
@@ -35,9 +20,7 @@ const World = () => {
     Promise.all([
       fetch('/owid/owid-covid-latest.csv')
         .then(res => res.text())
-        .then(d => {
-          return csvToArray(d, ',')
-        }),
+        .then(d =>  csvToArray(d, ',')),
       fetch('/datasets/countries.json')
         .then(res => res.json())
         .then(d => { 
@@ -45,6 +28,24 @@ const World = () => {
         })
     ]).then(([covidData, countryData]) => {
       const combinedData = []
+
+      switch(filterBy){
+        case "new_cases": 
+        break
+        case "total_deaths": 
+        break
+        case "new_deaths": 
+        break
+        case "icu_patients": 
+        break
+        case "hosp_patients":
+          break
+
+        case "total_cases": 
+        default:
+          break
+      }
+
       covidData.forEach(function(item){
         let c = {}
         for (let i = 0; i < countryData.length; i++){
@@ -66,7 +67,7 @@ const World = () => {
           hosp_patients: item.hosp_patients,
         }
         combinedData.push(o)
-      })
+      });
 
       setCovid(combinedData)
     })    
