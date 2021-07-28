@@ -18,14 +18,6 @@ function App() {
     })
   })
 
-  fetch('/owid/owid-covid-latest.json')
-  .then(response => {
-    return response.json()
-  })
-  .then(data => {
-    console.log(data)
-  })
-
   return (
     <World/>
     /*
