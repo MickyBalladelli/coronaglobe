@@ -105,7 +105,7 @@ const World = () => {
       pointsData={covid}
       pointLabel={d => `${d.country}: ${d.total_cases}`}
       pointColor={() => 'orange'}
-      pointAltitude={0.1}
+      pointAltitude={0}
       pointRadius={0.5}
       pointsMerge={true}
 
