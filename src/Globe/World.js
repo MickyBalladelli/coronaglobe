@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import Globe from 'react-globe.gl'
-import * as d3 from 'd3'
-import indexBy from 'index-array-by'
 import { csvToArray } from '../utils/utils.js'
 
 const worldData = [
