@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import Globe from 'react-globe.gl'
 import { csvToArray } from '../utils/utils.js'
 import * as d3 from 'd3'
+import { csvParse } from 'd3'
 
 // values for prop filterBy can be total cases, new cases, total deaths, new deaths, icu patients, hosp patients
 const World = (props) => {
@@ -132,7 +133,11 @@ const World = (props) => {
 
             // normalize to n = (x - minValue) / (maxValue - minValue)
             const normalized = (filterValue - minValue)/(maxValue - minValue)
-            
+            let altitude = normalized * 3 < 2 ? normalized * 3 : 2
+console.log("altitude", altitude, "country",  c.country)
+            if (altitude <= 0) {
+              altitude = 0.1
+            }
             const o = {
               country: c.country,
               lat:     c.lat,
@@ -142,13 +147,13 @@ const World = (props) => {
               // Calc color from a range of 0 to 1              
               color:   d3.interpolateYlOrRd(normalized * 3),
               // Same for altitude, go from 0 to 1
-              altitude: normalized * 3,
+              altitude: altitude,
             }
             combinedData.push(o)
           }
         }
       })
-
+      console.log("combinedData", combinedData)
       setCovid(combinedData)
     })    
   }, [])
@@ -167,17 +172,17 @@ const World = (props) => {
       backgroundImageUrl="/night-sky.png"
 
       arcsData={covid}
-      arcLabel={d => `${d.country}: ${d.label} ${d.value}`}
+      arcLabel={d => `${d.country}: ${d.label} ${d.value} ${d.altitude}`}
       arcStartLat={d => +d.lat}
       arcStartLng={d => +d.lng}
       arcEndLat={d => +d.lat}
       arcEndLng={d => +d.lng}
       arcDashLength={1.0}
-      arcDashGap={0.25}
+      arcDashGap={0}
       arcDashInitialGap={() => Math.random()}
       arcDashAnimateTime={2000}
       arcColor={d => d.color}
-      arcsTransitionDuration={1000}
+      arcsTransitionDuration={0}
       arcAltitude={d => d.altitude}
       arcStroke={2}
 
