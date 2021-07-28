@@ -19,7 +19,7 @@ function App() {
   })
 
   return (
-    <World/>
+    <World filterBy="total cases"/>
     /*
     <div className="App">
       <header className="App-header">

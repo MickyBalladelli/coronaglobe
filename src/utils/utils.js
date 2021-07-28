@@ -13,7 +13,16 @@ export function csvToArray(str, delimiter = ';') {
   // object properties derived from headers:values
   // the object passed as an element of the array
   const arr = rows.map(function (row) {
-    const values = row.split(delimiter)
+    const values = row.split(delimiter).map(function(i){
+        const val = parseInt(i)
+
+        if (Number.isNaN(val)) {          
+          return i
+        }
+        else {
+          return val
+        }
+    })
     const el = headers.reduce(function (object, header, index) {
       object[header] = values[index]
       return object
