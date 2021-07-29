@@ -101,7 +101,6 @@ function parseCovidData(covidData, countryData) {
       
       o = pushFilteredData(o, item, covidData, 'total_cases', combinedData)
       o = pushFilteredData(o, item, covidData, 'new_cases', combinedData)
-      console.log(o)
       o = pushFilteredData(o, item, covidData, 'total_deaths', combinedData)
       o = pushFilteredData(o, item, covidData, 'new_deaths', combinedData)
       o = pushFilteredData(o, item, covidData, 'icu_patients', combinedData)
