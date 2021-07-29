@@ -11,10 +11,13 @@ Data can be filtered by:
 * ICU patients
 * Hospitalized patients
 
-## Available Scripts
+Note: Data by Our World in Data is updated daily.
 
-In the project directory, you can run:
+## Getting started
 
+Download the project in a folder of your choice, then, you can run:
+
+### `npm i`
 ### `npm start`
 
 Runs the app in the development mode.\
