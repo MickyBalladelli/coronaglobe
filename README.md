@@ -1,6 +1,15 @@
 # Covid Globe
 
-Covid Globe is a React based Web application leveraging Vasco Asturiano globe.gl components ([https://github.com/vasturiano/react-globe.gl]https://github.com/vasturiano/react-globe.gl) and Covid date provided by ([https://github.com/owid/covid-19-data]https://github.com/owid/covid-19-data)
+Covid Globe is a React based Web application leveraging Vasco Asturiano globe.gl components ([https://github.com/vasturiano/react-globe.gl]https://github.com/vasturiano/react-globe.gl) and COVID-19 Dataset by Our World in Data ([https://github.com/owid/covid-19-data]https://github.com/owid/covid-19-data).\
+\
+Data can be filtered by\
+
+* Total cases
+* New cases
+* Total deaths
+* New deaths
+* ICU patients
+* Hospitalized patients
 
 ## Available Scripts
 
