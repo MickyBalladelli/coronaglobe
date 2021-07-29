@@ -1,29 +1,29 @@
 import logo from './logo.svg'
 import './App.css'
-import { csvToArray } from './utils/utils.js'
+
+import { getCovidData, getCityData } from './utils/serverCalls'
 import France from './react-departements/France'
 import World from './Globe/World'
 import Console from './Console'
+import { useState, useEffect } from 'react'
 
 function App() {
+  const [covid, setCovid] = useState([])
+  const [cites, setCites] = useState([])
 
-  fetch('/data/19a91d64-3cd3-42fc-9943-d635491a4d76')
-  .then(response => {    
-    var pathname = new URL(response.url).pathname
+  
+  useEffect(() => {
 
-    fetch('/staticdata' + pathname)
-    .then(response => {
-      return response.text()
-    })
-    .then(data => {
-      const csv = csvToArray(data)
-    })
-  })
+  }, [])
+  useEffect(() => {
+    getCovidData((d) => setCovid(d))
+    getCityData((d) => setCites(d))
+  }, [])  
 
   return (
     <div className="App">
       <Console />
-      <World filterBy="new cases"/>
+      <World filterBy="new_cases" covid={covid} cites={cites}/>
     {/*
       <header className="App-header">
         <img src={logo} className="animated-logo" alt="logo" />
