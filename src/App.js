@@ -3,6 +3,8 @@ import './App.css'
 import { csvToArray } from './utils/utils.js'
 import France from './react-departements/France'
 import World from './Globe/World'
+import Console from './Console'
+
 function App() {
 
   fetch('/data/19a91d64-3cd3-42fc-9943-d635491a4d76')
@@ -19,17 +21,18 @@ function App() {
   })
 
   return (
-    <World filterBy="new cases"/>
-    /*
     <div className="App">
+      <Console />
+      <World filterBy="new cases"/>
+    /*
       <header className="App-header">
         <img src={logo} className="animated-logo" alt="logo" />
         <France departements={[75, 89, 21, 33, 47, 74, "2a", 976]} />
 
         
       </header>
-    </div>
     */
+    </div>
     
   )
 }
