@@ -15,7 +15,7 @@ Data can be filtered by:
 
 Note: Data by Our World in Data is updated daily.
 
-![Covid Globe](/project-images/covid-globe.png)
+![Covid Globe](/project-images/covid-globe-flat.png)
 
 
 ## Getting started
