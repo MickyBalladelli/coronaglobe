@@ -21,18 +21,12 @@ Note: Data by Our World in Data is updated daily.
 Download the project in a folder of your choice, then, you can run:
 
 ### `npm i`
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
+Followed by 
 
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
 Once the project has built you can start it by executing
 
-`node build/server/server.js`
+### `node build/server/server.js`
