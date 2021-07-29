@@ -13,7 +13,7 @@ Data can be filtered by:
 
 Note: Data by Our World in Data is updated daily.
 
-[Covid Globe](/covid-globe.png)
+![Covid Globe](/covid-globe.png)
 
 
 ## Getting started
