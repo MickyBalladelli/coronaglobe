@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Covid Globe
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Covid Globe is a React based Web application leveraging Vasco Asturiano globe.gl components ([https://github.com/vasturiano/react-globe.gl]https://github.com/vasturiano/react-globe.gl) and Covid date provided by ([https://github.com/owid/covid-19-data]https://github.com/owid/covid-19-data)
 
 ## Available Scripts
 
@@ -18,13 +18,6 @@ You will also see any lint errors in the console.
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
 Once the project has built you can start it by executing
 
 `node build/server/server.js`
