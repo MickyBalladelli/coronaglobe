@@ -13,6 +13,9 @@ Data can be filtered by:
 
 Note: Data by Our World in Data is updated daily.
 
+[Covid Globe](/covid-globe.png)
+
+
 ## Getting started
 
 Download the project in a folder of your choice, then, you can run:
