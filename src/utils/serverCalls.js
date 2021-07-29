@@ -64,7 +64,7 @@ function parseCovidItem(item, filterBy, minValue, maxValue) {
       let altitude = normalized * 3 < 2 ? normalized * 3 : 2
 
       if (altitude <= 0) {
-        altitude = 0.1
+        altitude = 0.000000001
       }
 
       let o = {

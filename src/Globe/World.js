@@ -54,9 +54,9 @@ const World = (props) => {
           arcStartLng={d => +d.lng}
           arcEndLat={d => +d.lat}
           arcEndLng={d => +d.lng}
-          arcLabel={d =>  d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value}` : ''}
-          arcColor={d => d[props.filterBy] ? d[props.filterBy].color : '#000'}
-          arcAltitude={d =>  d[props.filterBy] ? d[props.filterBy].altitude : 0.1}
+          arcLabel={d =>  d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value}` : `${d.country}: 0`}
+          arcColor={d => d[props.filterBy] ? d[props.filterBy].color : '#fff'}
+          arcAltitude={d =>  d[props.filterBy] ? d[props.filterBy].altitude : 0.0000000001}
 
           pointsData={props.covid}
           pointColor={() => 'orange'}
