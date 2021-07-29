@@ -2,7 +2,28 @@ import { useState, useEffect, useRef } from 'react'
 import Globe from 'react-globe.gl'
 import { csvToArray } from '../utils/utils.js'
 import * as d3 from 'd3'
-import { csvParse } from 'd3'
+
+
+const testData = [
+  {
+    altitude: 0.5003824422425229,
+    color: "rgb(253, 137, 60)",
+    country: "United Kingdom",
+    label: "total cases",
+    lat: "54.702355",
+    lng: "-3.276575",
+    value: 5771732,
+  },
+  {
+    altitude: 2,
+    color: "rgb(128, 0, 38)",
+    country: "United States",
+    label: "total cases",
+    lat: "39.78373",
+    lng: "-100.445882",
+    value: 34603919,
+  }
+]
 
 // values for prop filterBy can be total cases, new cases, total deaths, new deaths, icu patients, hosp patients
 const World = (props) => {
@@ -172,15 +193,16 @@ console.log("altitude", altitude, "country",  c.country)
       backgroundImageUrl="/night-sky.png"
 
       arcsData={covid}
+      //arcsData={testData}
       arcLabel={d => `${d.country}: ${d.label} ${d.value} ${d.altitude}`}
       arcStartLat={d => +d.lat}
       arcStartLng={d => +d.lng}
       arcEndLat={d => +d.lat}
       arcEndLng={d => +d.lng}
-      arcDashLength={1.0}
-      arcDashGap={0}
+      arcDashLength={1}
+      arcDashGap={1}
       arcDashInitialGap={() => Math.random()}
-      arcDashAnimateTime={2000}
+      arcDashAnimateTime={4000}
       arcColor={d => d.color}
       arcsTransitionDuration={0}
       arcAltitude={d => d.altitude}
