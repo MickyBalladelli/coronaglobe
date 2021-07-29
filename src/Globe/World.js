@@ -182,7 +182,7 @@ console.log("altitude", altitude, "country",  c.country)
   useEffect(() => {
     // Auto-rotate
     globeEl.current.controls().autoRotate = true
-    globeEl.current.controls().autoRotateSpeed = -0.5
+    globeEl.current.controls().autoRotateSpeed = -0.2
   }, [])
   
   return (
