@@ -155,7 +155,7 @@ const World = (props) => {
             // normalize to n = (x - minValue) / (maxValue - minValue)
             const normalized = (filterValue - minValue)/(maxValue - minValue)
             let altitude = normalized * 3 < 2 ? normalized * 3 : 2
-console.log("altitude", altitude, "country",  c.country)
+
             if (altitude <= 0) {
               altitude = 0.1
             }
@@ -174,7 +174,7 @@ console.log("altitude", altitude, "country",  c.country)
           }
         }
       })
-      console.log("combinedData", combinedData)
+      //console.log("combinedData", combinedData)
       setCovid(combinedData)
     })    
   }, [])
