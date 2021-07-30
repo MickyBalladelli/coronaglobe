@@ -46,9 +46,9 @@ const World = (props) => {
           arcsData={props.covid}
           arcDashLength={1}
           arcDashGap={1}
-          arcDashInitialGap={() => Math.random()}
+          arcDashInitialGap={0}
           arcDashAnimateTime={4000}
-          arcsTransitionDuration={0}
+          arcsTransitionDuration={1000}
           arcStroke={2}
           arcStartLat={d => +d.lat}
           arcStartLng={d => +d.lng}
