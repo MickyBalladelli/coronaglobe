@@ -64,7 +64,6 @@ const World = (props) => {
           pointRadius={0.5}
           pointsMerge={true}
 
-
           labelsData={props.cites}
           labelLat={d => d.properties.latitude}
           labelLng={d => d.properties.longitude}
