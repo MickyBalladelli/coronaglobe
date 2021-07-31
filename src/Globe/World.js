@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Globe from 'react-globe.gl'
 
 
@@ -27,16 +27,30 @@ const testData = [
 // values for prop filterBy can be total_cases, new_cases, total_deaths, new_deaths, icu_patients, hosp_patients
 const World = (props) => {
   const globeEl = useRef()
+  const [countries, setCountries] = useState({ features: []})
+  const [altitude, setAltitude] = useState(0.1)
+  const [transitionDuration, setTransitionDuration] = useState(1000)
 
   useEffect(() => {
-    // Auto-rotate
-    globeEl.current.controls().autoRotate = true
-    globeEl.current.controls().autoRotateSpeed = -0.2
+    // load data
+    fetch('/datasets/countries.geojson').then(res => res.json())
+      .then(countries=> {
+        setCountries(countries)
+      })
+  }, [])
+
+  useEffect(() => {
+    if (globeEl && globeEl.current) {
+      globeEl.current.controls().autoRotate = true
+      globeEl.current.controls().autoRotateSpeed = -0.2
+
+      globeEl.current.pointOfView({ altitude: 4 }, 5000)
+    }
   }, [])
   
   return (
     <div>
-      {props.covid && props.cites &&
+      {props.covid && props.cites && props.lines === true &&
         <Globe
           ref={globeEl}
           globeImageUrl="/earth-night.jpg"
@@ -72,7 +86,23 @@ const World = (props) => {
           labelDotRadius={d => Math.sqrt(d.properties.pop_max) * 4e-4}
           labelColor={() => 'rgba(255, 165, 0, 0.75)'}
           labelResolution={2}
+          />
+      }
+      {props.polygons === true && props.covid && props.cites &&
+        <Globe
+          ref={globeEl}
+          globeImageUrl="/earth-night.jpg"
+          bumpImageUrl="/earth-topology.png"
+          backgroundImageUrl="/night-sky.png"
+
+          polygonsData={props.covid}
+          polygonAltitude={d => d[props.filterBy] ? d[props.filterBy].altitude : 0.01}
+          polygonCapColor={d => d[props.filterBy] ? d[props.filterBy].color : '#fff'}
+          polygonSideColor={() => 'rgba(0, 100, 0, 0.15)'}
+          polygonLabel={d =>  d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value} altitude: ${d[props.filterBy].altitude}` : `${d.country}: no value` }
+          polygonsTransitionDuration={transitionDuration}
         />
+
       }
     </div>
   )

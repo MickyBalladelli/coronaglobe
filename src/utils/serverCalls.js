@@ -31,11 +31,15 @@ export function getCovidData(callback) {
       .then(res => res.json())
       .then(d => { 
         return d
+      }),
+    fetch('/datasets/countries.geojson')
+      .then(res => res.json())
+      .then(d => { 
+        return d
       })
-  ]).then(([covidData, countryData]) => {
-        
-    const combinedData = parseCovidData(covidData, countryData) 
 
+  ]).then(([covidData, countryData, countryGeoData]) => {            
+    const combinedData = parseCovidData(covidData, countryData, countryGeoData) 
     callback(combinedData)
   })    
 }
@@ -63,8 +67,8 @@ function parseCovidItem(item, filterBy, minValue, maxValue) {
       const normalized = (filterValue - minValue)/(maxValue - minValue)
       let altitude = normalized * 3 < 2 ? normalized * 3 : 2
 
-      if (altitude <= 0) {
-        altitude = 0.000000001
+      if (altitude < 0.01) {
+        altitude = 0.01
       }
 
       let o = {
@@ -79,7 +83,7 @@ function parseCovidItem(item, filterBy, minValue, maxValue) {
   }
   return null
 }
-function parseCovidData(covidData, countryData) {
+function parseCovidData(covidData, countryData, countryGeoData) {
   const combinedData = []
 
   covidData.forEach(function(item) {
@@ -91,27 +95,42 @@ function parseCovidData(covidData, countryData) {
         break
       }
     }
-    if (c.country !== undefined) {            
-    
+
+    let geo = {}
+    for (let i = 0; i < countryGeoData.features.length; i++){
+      if (countryGeoData.features[i].properties.NAME_CIAWF === item.location){            
+        geo = countryGeoData.features[i]
+        break
+      }
+    }
+
+    if (geo.properties !== undefined && c.country !== undefined) {            
       let o = {
-        country: c.country,
-        lat:     c.lat,
-        lng:     c.lng,
+        country:    c.country,
+        lat:        c.lat,
+        lng:        c.lng,
+        geometry:   geo.geometry,
+        bbox:       geo.bbox,
+        properties: geo.properties,
       }
       
-      o = pushFilteredData(o, item, covidData, 'total_cases', combinedData)
-      o = pushFilteredData(o, item, covidData, 'new_cases', combinedData)
-      o = pushFilteredData(o, item, covidData, 'total_deaths', combinedData)
-      o = pushFilteredData(o, item, covidData, 'new_deaths', combinedData)
-      o = pushFilteredData(o, item, covidData, 'icu_patients', combinedData)
-      o = pushFilteredData(o, item, covidData, 'hosp_patients', combinedData)     
+      o = pushFilteredData(o, item, covidData, 'total_cases')
+      o = pushFilteredData(o, item, covidData, 'new_cases')
+      o = pushFilteredData(o, item, covidData, 'total_deaths')
+      o = pushFilteredData(o, item, covidData, 'new_deaths')
+      o = pushFilteredData(o, item, covidData, 'icu_patients')
+      o = pushFilteredData(o, item, covidData, 'hosp_patients')
+      
       combinedData.push(o)
+    }
+    else {
+      console.log("Error, country not found", item.location)
     }
   })
 
   return combinedData
 }
-function pushFilteredData(o, item, covidData, filterBy, combinedData) {
+function pushFilteredData(o, item, covidData, filterBy) {
   let [minValue, maxValue] = computeMinMax(covidData, filterBy) 
   if (maxValue > 0) {
     const itemData = parseCovidItem(item, filterBy, minValue, maxValue)
