@@ -97,8 +97,8 @@ const World = (props) => {
 
           polygonsData={props.covid}
           polygonAltitude={d => d[props.filterBy] ? d[props.filterBy].altitude : 0.01}
-          polygonCapColor={d => d[props.filterBy] ? d[props.filterBy].color : '#fff'}
-          polygonSideColor={() => 'rgba(0, 100, 0, 0.15)'}
+          polygonCapColor={d => d[props.filterBy] ? d[props.filterBy].color : 'rgba(0, 100, 0, 0.15)'}
+          polygonSideColor={() => 'rgba(0, 255, 255, 0.15)'}
           polygonLabel={d =>  d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value} altitude: ${d[props.filterBy].altitude}` : `${d.country}: no value` }
           polygonsTransitionDuration={transitionDuration}
         />
