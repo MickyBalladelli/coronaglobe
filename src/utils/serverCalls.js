@@ -120,7 +120,9 @@ function parseCovidData(covidData, countryData, countryGeoData) {
       o = pushFilteredData(o, item, covidData, 'new_deaths')
       o = pushFilteredData(o, item, covidData, 'icu_patients')
       o = pushFilteredData(o, item, covidData, 'hosp_patients')
-      
+      if (o.properties.NAME_CIAWF === "Hong Kong"){
+        console.log(o)
+      }
       combinedData.push(o)
     }
     else {
