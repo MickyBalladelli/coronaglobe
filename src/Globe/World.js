@@ -91,7 +91,7 @@ const World = (props) => {
           polygonAltitude={d => d[props.filterBy] ? d[props.filterBy].altitude : 0.01}
           polygonCapColor={d => d[props.filterBy] ? d[props.filterBy].color : 'rgba(0, 100, 0, 0.15)'}
           polygonSideColor={() => 'rgba(0, 255, 255, 0.15)'}
-          polygonLabel={d =>  d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value} altitude: ${d[props.filterBy].altitude}` : `${d.country}: no value` }
+          polygonLabel={d =>  d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value}` : `${d.country}: no value` }
           polygonsTransitionDuration={1000}
         />
 
