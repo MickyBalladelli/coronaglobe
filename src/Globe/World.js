@@ -1,3 +1,6 @@
+// properties:
+//   format, string, can be "lines" or "polygons"
+
 import { useEffect, useRef, useState } from 'react'
 import Globe from 'react-globe.gl'
 
@@ -27,17 +30,6 @@ const testData = [
 // values for prop filterBy can be total_cases, new_cases, total_deaths, new_deaths, icu_patients, hosp_patients
 const World = (props) => {
   const globeEl = useRef()
-  const [countries, setCountries] = useState({ features: []})
-  const [altitude, setAltitude] = useState(0.1)
-  const [transitionDuration, setTransitionDuration] = useState(1000)
-
-  useEffect(() => {
-    // load data
-    fetch('/datasets/countries.geojson').then(res => res.json())
-      .then(countries=> {
-        setCountries(countries)
-      })
-  }, [])
 
   useEffect(() => {
     if (globeEl && globeEl.current) {
@@ -50,7 +42,7 @@ const World = (props) => {
   
   return (
     <div>
-      {props.covid && props.cites && props.lines === true &&
+      {props.covid && props.cites && props.format === 'lines' &&
         <Globe
           ref={globeEl}
           globeImageUrl="/earth-night.jpg"
@@ -88,7 +80,7 @@ const World = (props) => {
           labelResolution={2}
           />
       }
-      {props.polygons === true && props.covid && props.cites &&
+      {props.format === 'polygons' && props.covid && props.cites &&
         <Globe
           ref={globeEl}
           globeImageUrl="/earth-night.jpg"
@@ -100,7 +92,7 @@ const World = (props) => {
           polygonCapColor={d => d[props.filterBy] ? d[props.filterBy].color : 'rgba(0, 100, 0, 0.15)'}
           polygonSideColor={() => 'rgba(0, 255, 255, 0.15)'}
           polygonLabel={d =>  d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value} altitude: ${d[props.filterBy].altitude}` : `${d.country}: no value` }
-          polygonsTransitionDuration={transitionDuration}
+          polygonsTransitionDuration={1000}
         />
 
       }

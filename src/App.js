@@ -23,7 +23,7 @@ function App() {
   return (
     <div className="App">
       <Console />
-      <World filterBy="total_cases" covid={covid} cites={cites} lines={false} polygons={true} />
+      <World filterBy="total_cases" covid={covid} cites={cites} format={"polygons"} />
     {/*
       <header className="App-header">
         <img src={logo} className="animated-logo" alt="logo" />
