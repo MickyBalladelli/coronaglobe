@@ -36,7 +36,7 @@ const World = (props) => {
       globeEl.current.controls().autoRotate = true
       globeEl.current.controls().autoRotateSpeed = -0.2
 
-      globeEl.current.pointOfView({ altitude: 4 }, 5000)
+      globeEl.current.pointOfView({ altitude: 6 }, 5000)
     }
   }, [])
   
