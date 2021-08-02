@@ -11,10 +11,6 @@ function App() {
   const [covid, setCovid] = useState([])
   const [cites, setCites] = useState([])
 
-  
-  useEffect(() => {
-
-  }, [])
   useEffect(() => {
     getCovidData((d) => setCovid(d))
     getCityData((d) => setCites(d))
@@ -22,7 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <Console />
+      <Console filterBy="new_cases" covid={covid} />
       <World filterBy="new_cases" covid={covid} cites={cites} format={"polygons"} />
     {/*
       <header className="App-header">
