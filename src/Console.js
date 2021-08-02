@@ -25,7 +25,7 @@ export default function Console () {
   
   useEffect(() => {
     setTimeout(function(){ 
-      alert("Hello") 
+      
     }, 3000)  
 
   }, [])
