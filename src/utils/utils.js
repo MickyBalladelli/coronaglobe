@@ -14,6 +14,8 @@ export function csvToArray(str, delimiter = ';') {
   // the object passed as an element of the array
   const arr = rows.map(function (row) {
     const values = row.split(delimiter).map(function(i){
+      const date = Date.parse(i) 
+      if (Number.isNaN(date)) {          
         const val = parseInt(i)
 
         if (Number.isNaN(val)) {          
@@ -22,6 +24,8 @@ export function csvToArray(str, delimiter = ';') {
         else {
           return val
         }
+      }
+      return i
     })
     const el = headers.reduce(function (object, header, index) {
       object[header] = values[index]

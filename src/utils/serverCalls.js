@@ -113,7 +113,7 @@ function parseCovidData(covidData, countryData, countryGeoData) {
         bbox:       geo.bbox,
         properties: geo.properties,
       }
-      
+
       o = pushFilteredData(o, item, covidData, 'total_cases')
       o = pushFilteredData(o, item, covidData, 'new_cases')
       o = pushFilteredData(o, item, covidData, 'total_deaths')
@@ -121,7 +121,7 @@ function parseCovidData(covidData, countryData, countryGeoData) {
       o = pushFilteredData(o, item, covidData, 'icu_patients')
       o = pushFilteredData(o, item, covidData, 'hosp_patients')
       if (o.properties.NAME_CIAWF === "Hong Kong"){
-        console.log(o)
+        console.log(covidData)
       }
       combinedData.push(o)
     }
