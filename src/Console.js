@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     'z-index':   1000,
     position:    'absolute',
     bottom:      0,
-    width:       '700px',
+    width:       '400px',
     height:      '200px',
     marginLeft:  'auto',
     marginRight: 'auto',
