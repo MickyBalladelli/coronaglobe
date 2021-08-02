@@ -6,11 +6,13 @@ import France from './react-departements/France'
 import World from './Globe/World'
 import Console from './Console'
 import { useState, useEffect } from 'react'
+import useCustom from './CustomHooks'
 
 function App() {
   const [covid, setCovid] = useState([])
   const [cites, setCites] = useState([])
-
+  const [globalState, setGlobalState] = useCustom()
+  
   useEffect(() => {
     getCovidData((d) => setCovid(d))
     getCityData((d) => setCites(d))

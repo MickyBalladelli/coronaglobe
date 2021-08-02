@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
+import useCustom from './CustomHooks'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Appbar() {
   const classes = useStyles()
-
+  const [globalState, setGlobalState] = useCustom()
+  
   return (
     <div className={classes.root}>
       <AppBar position="static" color="inherit" >
