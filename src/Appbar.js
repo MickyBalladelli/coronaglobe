@@ -26,7 +26,7 @@ export default function Appbar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="inherit" >
+      <AppBar position="absolute" color="inherit" >
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Coronavirus Globe

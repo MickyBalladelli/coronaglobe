@@ -1,12 +1,21 @@
 // properties:
 //   format, string, can be "lines" or "polygons"
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import Globe from 'react-globe.gl'
+
+const useStyles = makeStyles((theme) => ({
+  root:{
+    minHeight: '100%',
+    height: '100%'
+  },
+}))
 
 // values for prop filterBy can be total_cases, new_cases, total_deaths, new_deaths, icu_patients, hosp_patients
 const World = (props) => {
   const globeEl = useRef()
+  const classes = useStyles()
 
   useEffect(() => {
     if (globeEl && globeEl.current) {
@@ -18,9 +27,10 @@ const World = (props) => {
   }, [props.format])
   
   return (
-    <div>
+    <div className={classes.root}>
       {props.covid && props.cites && props.format === 'Lines' &&
         <Globe
+          className={classes.root}
           ref={globeEl}
           globeImageUrl="/earth-night.jpg"
           bumpImageUrl="/earth-topology.png"
@@ -59,6 +69,7 @@ const World = (props) => {
       }
       {props.format === 'Polygons' && props.covid && props.cites &&
         <Globe
+          className={classes.root}
           ref={globeEl}
           globeImageUrl="/earth-night.jpg"
           bumpImageUrl="/earth-topology.png"
