@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import useCustom from './CustomHooks'
 import DisplayType from './DisplayType'
+import Filter from './Filter'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +38,7 @@ export default function Appbar() {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
+          <Filter />
           <DisplayType />
           <Button color="inherit">Login</Button>
         </Toolbar>
