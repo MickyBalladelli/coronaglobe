@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
+import { ParametricBufferGeometry } from "three"
 
 const useStyles = makeStyles({
   fixed: {
@@ -19,6 +20,25 @@ const useStyles = makeStyles({
     marginLeft: 30,
   }
 })
+function useInterval(callback, delay, param) {
+  const savedCallback = React.useRef()
+
+  // Remember the latest callback.
+  React.useEffect(() => {
+    savedCallback.current = callback
+  }, [callback])
+
+  // Set up the interval.
+  React.useEffect(() => {
+    function tick() {
+      savedCallback.current()
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay)
+      return () => clearInterval(id)
+    }
+  }, [delay], param)
+}
 
 const MAX_ELEMENTS = 8
 
@@ -26,70 +46,73 @@ export default function Console (props) {
   const classes = useStyles()
   const [current, setCurrent] = useState(0)
   const [consoleData, setConsoleData] = useState([])
-  useEffect(() => {
 
+    useInterval(() => { 
+    
     if (props.covid && props.covid.length > 0) {
-      setInterval(function(c){ 
-        
-        if (c && c.length > 0) {
-          if (consoleData.length > MAX_ELEMENTS ) {
-            consoleData.shift()
-          }
-          let dataType = ''
-          switch(props.filterBy){
-            default:
-            case 'new_cases':
-              dataType = 'new cases'
-              break
-            case 'new_deaths':
-              dataType = 'new deaths'
-              break  
-            case 'total_cases':
-              dataType = 'total cases'
-              break
-            case 'hosp_patients':
-              dataType = 'hosp patients'
-              break
-            case 'icu_patients':
-              dataType = 'ICU patients'
-              break
-            case 'total_deaths':
-              dataType = 'total deaths'
-              break
-          }
-          const d = c[current]
-
-          if (d[props.filterBy] !== null) {
-            const element = {
-              text:  `${d.date} ${d.country} ${dataType} ${d[props.filterBy].value}`,
-              color: c[props.filterBy].color,
-            }
-            console.log(element)
-            consoleData.push(element)
-            setConsoleData(consoleData)
-            setCurrent(current++)
-
-            if (current >= c.length) {
-              setCurrent(0)
-            }
-          }
+      let dataType = ''
+      switch(props.filterBy){
+        default:
+        case 'new_cases':
+          dataType = 'new cases'
+          break
+        case 'new_deaths':
+          dataType = 'new deaths'
+          break  
+        case 'total_cases':
+          dataType = 'total cases'
+          break
+        case 'hosp_patients':
+          dataType = 'hosp patients'
+          break
+        case 'icu_patients':
+          dataType = 'ICU patients'
+          break
+        case 'total_deaths':
+          dataType = 'total deaths'
+          break
+      }
+      const d = props.covid[current]
+      let element = {}
+      if (d[props.filterBy] !== null && d[props.filterBy] !== undefined) {
+        element = {
+          text:  `${d.date} ${d.country} ${dataType} ${d[props.filterBy].value}`,
+          color: d[props.filterBy].color,
         }
-      }, 1000, props.covid)  
+      } 
+      else {
+        element = {
+          text:  `${d.date} ${d.country} ${dataType} no value`,
+          color: '#fff',
+        }
+      }
+
+      consoleData.push(element)
+      setConsoleData(consoleData)
+      if (consoleData.length > MAX_ELEMENTS ) {
+        consoleData.shift()
+      }
+
+      if (current >= props.covid.length - 1) {
+        setCurrent(() => 0)            
+      }
+      else {
+        setCurrent(cur => cur + 1)
+      }
     }
-  }, [props.covid])
+  }, 1000)  
   
   return (
     <div className={classes.fixed} style={{ backgroundColor: "black" }}>
-      <Typography style={{ color: '#fff' }} className={classes.typo} variant="caption">This text should be white</Typography><br/>
-      <Typography style={{ color: '#fff' }} className={classes.typo} variant="caption">This text should be white2</Typography><br/>
-      <Typography style={{ color: '#fff' }} className={classes.typo} variant="caption">This text should be white3</Typography><br/>
-      <Typography style={{ color: '#fff' }} className={classes.typo} variant="caption">This text should be white4</Typography><br/>
-      <Typography style={{ color: '#fff' }} className={classes.typo} variant="caption">This text should be white5</Typography><br/>
-      <Typography style={{ color: '#fff' }} className={classes.typo} variant="caption">This text should be white6</Typography><br/>
-      <Typography style={{ color: '#fff' }} className={classes.typo} variant="caption">This text should be white7</Typography><br/>
-      <Typography style={{ color: '#fff' }} className={classes.typo} variant="caption">This text should be white8</Typography><br/>
-      <Typography style={{ color: '#fff' }} className={classes.typo} variant="caption">This text should be white9</Typography><br/>
-      <Typography style={{ color: '#fff' }} className={classes.typo} variant="caption">This text should be white10</Typography><br/>
+      {
+        consoleData.map((i) => {
+          return (
+            <div>
+              <Typography style={{ color: i.color }} className={classes.typo} variant="caption">{i.text}</Typography><br/>
+            </div>
+          )
+        })
+      }      
     </div>
   )
 }
