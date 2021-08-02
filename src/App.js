@@ -1,6 +1,6 @@
 import logo from './logo.svg'
 import './App.css'
-
+import Appbar from './Appbar'
 import { getCovidData, getCityData } from './utils/serverCalls'
 import France from './react-departements/France'
 import World from './Globe/World'
@@ -18,6 +18,7 @@ function App() {
 
   return (
     <div className="App">
+      <Appbar />
       <Console filterBy="new_cases" covid={covid} />
       <World filterBy="new_cases" covid={covid} cites={cites} format={"polygons"} />
     {/*
