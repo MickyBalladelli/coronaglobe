@@ -1,4 +1,3 @@
-import './App.css'
 import Appbar from './Appbar'
 import { getCovidData, getCityData } from './utils/serverCalls'
 import France from './react-departements/France'
@@ -26,7 +25,7 @@ function App() {
   }, [])  
 
   return (
-    <div className="App">
+    <div>
       <Appbar />
       <FullScreen handle={handle}>
         <Console filterBy={globalState.filterBy} covid={covid} />

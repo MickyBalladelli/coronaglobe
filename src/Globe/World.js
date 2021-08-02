@@ -23,14 +23,22 @@ const World = (props) => {
       globeEl.current.controls().autoRotateSpeed = -0.2
 
       globeEl.current.pointOfView({ altitude: 6 }, 5000)
+      window.addEventListener('resize', () => {
+        globeEl.current.camera().aspect = window.innerWidth / window.innerHeight
+        globeEl.current.camera().updateProjectionMatrix()
+        globeEl.current.renderer().setSize(window.innerWidth, window.innerHeight)
+      }, false)
+
     }
   }, [props.format])
+
   
+
+
   return (
     <div className={classes.root}>
       {props.covid && props.cites && props.format === 'Lines' &&
         <Globe
-          className={classes.root}
           ref={globeEl}
           globeImageUrl="/earth-night.jpg"
           bumpImageUrl="/earth-topology.png"
@@ -69,7 +77,6 @@ const World = (props) => {
       }
       {props.format === 'Polygons' && props.covid && props.cites &&
         <Globe
-          className={classes.root}
           ref={globeEl}
           globeImageUrl="/earth-night.jpg"
           bumpImageUrl="/earth-topology.png"
