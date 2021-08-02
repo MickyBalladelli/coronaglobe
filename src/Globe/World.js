@@ -38,11 +38,11 @@ const World = (props) => {
 
       globeEl.current.pointOfView({ altitude: 6 }, 5000)
     }
-  }, [])
+  }, [props.format])
   
   return (
     <div>
-      {props.covid && props.cites && props.format === 'lines' &&
+      {props.covid && props.cites && props.format === 'Lines' &&
         <Globe
           ref={globeEl}
           globeImageUrl="/earth-night.jpg"
@@ -80,7 +80,7 @@ const World = (props) => {
           labelResolution={2}
           />
       }
-      {props.format === 'polygons' && props.covid && props.cites &&
+      {props.format === 'Polygons' && props.covid && props.cites &&
         <Globe
           ref={globeEl}
           globeImageUrl="/earth-night.jpg"

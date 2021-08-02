@@ -14,15 +14,17 @@ function App() {
   const [globalState, setGlobalState] = useCustom()
   
   useEffect(() => {
+    setGlobalState({ format: "Polygons"})
     getCovidData((d) => setCovid(d))
     getCityData((d) => setCites(d))
+
   }, [])  
 
   return (
     <div className="App">
       <Appbar />
       <Console filterBy="new_cases" covid={covid} />
-      <World filterBy="new_cases" covid={covid} cites={cites} format={"polygons"} />
+      <World filterBy="new_cases" covid={covid} cites={cites} format={globalState.format} />
     {/*
       <header className="App-header">
         <img src={logo} className="animated-logo" alt="logo" />

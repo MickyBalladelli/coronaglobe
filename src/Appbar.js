@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import useCustom from './CustomHooks'
+import DisplayType from './DisplayType'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Appbar() {
   const classes = useStyles()
   const [globalState, setGlobalState] = useCustom()
-  
+
   return (
     <div className={classes.root}>
       <AppBar position="static" color="inherit" >
@@ -36,7 +37,7 @@ export default function Appbar() {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-
+          <DisplayType />
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
