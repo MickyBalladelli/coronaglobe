@@ -120,13 +120,13 @@ function parseCovidData(covidData, countryData, countryGeoData) {
       o = pushFilteredData(o, item, covidData, 'new_deaths')
       o = pushFilteredData(o, item, covidData, 'icu_patients')
       o = pushFilteredData(o, item, covidData, 'hosp_patients')
-      if (o.properties.NAME_CIAWF === "Hong Kong"){
+/*      if (o.properties.NAME_CIAWF === "Hong Kong"){
         console.log(covidData)
-      }
+      }*/
       combinedData.push(o)
     }
     else {
-      console.log("Error, country not found", item.location)
+      //console.log("Error, country not found", item.location)
     }
   })
 

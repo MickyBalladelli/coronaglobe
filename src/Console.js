@@ -22,6 +22,14 @@ const useStyles = makeStyles({
 export default function Console () {
   const classes = useStyles()
 
+  
+  useEffect(() => {
+    setTimeout(function(){ 
+      alert("Hello") 
+    }, 3000)  
+
+  }, [])
+  console.log(props.covid) //d[props.filterBy]
   return (
     <div className={classes.fixed} style={{ backgroundColor: "black" }}>
       <Typography style={{ color: '#fff' }} className={classes.typo} variant="caption">
