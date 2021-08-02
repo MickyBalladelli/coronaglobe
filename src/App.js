@@ -1,4 +1,3 @@
-import logo from './logo.svg'
 import './App.css'
 import Appbar from './Appbar'
 import { getCovidData, getCityData } from './utils/serverCalls'
@@ -7,16 +6,19 @@ import World from './Globe/World'
 import Console from './Console'
 import { useState, useEffect } from 'react'
 import useCustom from './CustomHooks'
+import { FullScreen, useFullScreenHandle } from "react-full-screen"
 
 function App() {
   const [covid, setCovid] = useState([])
   const [cites, setCites] = useState([])
   const [globalState, setGlobalState] = useCustom()
-  
+  const handle = useFullScreenHandle()
+
   useEffect(() => {
     setGlobalState({ 
       format: 'Polygons',
       filterBy: 'new_cases',
+      handle: handle,
     })
     getCovidData((d) => setCovid(d))
     getCityData((d) => setCites(d))
@@ -26,8 +28,10 @@ function App() {
   return (
     <div className="App">
       <Appbar />
-      <Console filterBy={globalState.filterBy} covid={covid} />
-      <World filterBy={globalState.filterBy} covid={covid} cites={cites} format={globalState.format} />
+      <FullScreen handle={handle}>
+        <Console filterBy={globalState.filterBy} covid={covid} />
+        <World filterBy={globalState.filterBy} covid={covid} cites={cites} format={globalState.format} />
+      </FullScreen>
     {/*
       <header className="App-header">
         <img src={logo} className="animated-logo" alt="logo" />

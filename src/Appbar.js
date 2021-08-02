@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import DisplayType from './DisplayType'
 import Filter from './Filter'
+import Fullscreen from './Fullscreen'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +31,7 @@ export default function Appbar() {
           <Typography variant="h6" className={classes.title}>
             Coronavirus Globe
           </Typography>
+          <Fullscreen/>
           <Filter />
           <DisplayType />
         </Toolbar>
