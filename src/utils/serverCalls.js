@@ -112,6 +112,7 @@ function parseCovidData(covidData, countryData, countryGeoData) {
         geometry:   geo.geometry,
         bbox:       geo.bbox,
         properties: geo.properties,
+        date:       covidData[0].last_updated_date
       }
 
       o = pushFilteredData(o, item, covidData, 'total_cases')
