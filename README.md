@@ -34,4 +34,4 @@ Followed by
 Builds the app for production to the `build` folder.\
 Once the project has built you can start it by executing
 
-### `node build/server/server.js`
+### `node build/server.js`
