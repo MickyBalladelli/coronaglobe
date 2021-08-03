@@ -38,7 +38,5 @@ app.use('/owid', morgan('dev'), createProxyMiddleware({
   },
 }))
 
-
-// Static server relative to path build/server/../
-app.use('/', morgan('dev'), express.static(path.join(__dirname, '..')))
+app.use('/', morgan('dev'), express.static(__dirname))
 app.listen(3000)
