@@ -7,21 +7,7 @@ export function getCityData(callback) {
   .then(({ features }) => callback(features)
   )
 }
-export function getData(callback) {
-  fetch('/data/19a91d64-3cd3-42fc-9943-d635491a4d76')
-  .then(response => {    
-    var pathname = new URL(response.url).pathname
 
-    fetch('/staticdata' + pathname)
-    .then(response => {
-      return response.text()
-    })
-    .then(data => {
-      const array = csvToArray(data)
-      callback(array)
-    })
-  })
-}
 export function getCovidData(callback) {  
   Promise.all([
     fetch('/owid/owid-covid-latest.csv')
