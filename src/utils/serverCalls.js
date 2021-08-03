@@ -10,7 +10,7 @@ export function getCityData(callback) {
 
 export function getCovidData(callback) {  
   Promise.all([
-    fetch('/owid/owid-covid-latest.csv')
+    fetch('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/latest/owid-covid-latest.csv')
       .then(res => res.text())
       .then(d =>  csvToArray(d, ',')),
     fetch('/datasets/countries.json')
