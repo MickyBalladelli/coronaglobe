@@ -1,7 +1,7 @@
 import Appbar from './Appbar'
 import { getCovidData, getCityData } from './utils/serverCalls'
 import France from './react-departements/France'
-import World from './Globe/World'
+import World from './World'
 import Console from './Console'
 import { useState, useEffect } from 'react'
 import useCustom from './CustomHooks'
@@ -18,6 +18,7 @@ function App() {
       format: 'Polygons',
       filterBy: 'new_cases',
       handle: handle,
+      selected: null,
     })
     getCovidData((d) => setCovid(d))
     getCityData((d) => setCites(d))

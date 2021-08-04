@@ -4,6 +4,7 @@
 import { useEffect, useRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Globe from 'react-globe.gl'
+import useCustom from './CustomHooks'
 
 const useStyles = makeStyles((theme) => ({
   root:{
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const World = (props) => {
   const globeEl = useRef()
   const classes = useStyles()
+  const [globalState, setGlobalState] = useCustom()
 
   useEffect(() => {
     if (globeEl && globeEl.current) {
@@ -33,12 +35,12 @@ const World = (props) => {
   }, [props.format])
 
   function onClick(element, e) {
-    console.log(element)
+    setGlobalState({selected: element})
 
   }
 
   function onHover(element, prev) {
-    console.log(element)
+    setGlobalState({selected: element})
   }
   return (
     <div className={classes.root}>
