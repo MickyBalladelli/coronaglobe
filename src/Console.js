@@ -101,14 +101,23 @@ export default function Console (props) {
       }
     }
   }, 1000)  
-  
+  function getColor(c){
+    if (c === 'rgb(128, 0, 38)') {
+      return 'rgb(255, 0, 0)'      
+    }
+    else {
+      return c
+    }
+
+  }
+
   return (
     <div className={classes.fixed} style={{ backgroundColor: "black" }}>
       {
         consoleData.map((i, index) => {
           return (
             <div key={index}> 
-              <Typography style={{ color: i.color }} className={classes.typo} variant="caption">{i.text}</Typography><br/>
+              <Typography style={{ color: getColor(i.color) }} className={classes.typo} variant="caption">{i.text}</Typography><br/>
             </div>
           )
         })
