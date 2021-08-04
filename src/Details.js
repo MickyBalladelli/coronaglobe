@@ -27,7 +27,6 @@ export default function Details (props) {
   const [globalState, setGlobalState] = useCustom()
 
   function getColor(c){
-    console.log(c)
     if (c === 'rgb(128, 0, 38)') {
       return 'rgb(255, 0, 0)'      
     }
@@ -61,7 +60,17 @@ export default function Details (props) {
           <div>
             <Typography style={{ "color": getColor(globalState.selected.hosp_patients.color) }} className={classes.typo} variant="caption">Hospitalized patients: {globalState.selected.hosp_patients.value}</Typography><br/>
           </div>
-          }          
+          }
+          {globalState.selected.total_deaths &&
+          <div>
+            <Typography style={{ "color": getColor(globalState.selected.total_deaths.color) }} className={classes.typo} variant="caption">Total deaths: {globalState.selected.total_deaths.value}</Typography><br/>
+          </div>
+          }
+          {globalState.selected.total_cases &&
+          <div>
+            <Typography style={{ "color": getColor(globalState.selected.total_cases.color) }} className={classes.typo} variant="caption">Total cases: {globalState.selected.total_cases.value}</Typography><br/>
+          </div>
+          }   
         </div>
       }      
 
