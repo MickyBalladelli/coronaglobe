@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     'z-index':   1000,
     position:    'absolute',
     bottom:      0,
-    width:       '400px',
+    width:       '450px',
     height:      '200px',
     marginLeft:  'auto',
     marginRight: 'auto',
@@ -108,7 +108,7 @@ export default function Console (props) {
         consoleData.map((i, index) => {
           return (
             <div key={index}> 
-              <Typography style={{ color: i.color }} className={classes.typo} variant="caption">{i.text}</Typography><br/>
+              <Typography style={{ color: i.color }} className={classes.typo} variant="H3">{i.text}</Typography><br/>
             </div>
           )
         })
