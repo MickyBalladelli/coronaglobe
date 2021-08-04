@@ -105,9 +105,9 @@ export default function Console (props) {
   return (
     <div className={classes.fixed} style={{ backgroundColor: "black" }}>
       {
-        consoleData.map((i) => {
+        consoleData.map((i, index) => {
           return (
-            <div>
+            <div key={index}> 
               <Typography style={{ color: i.color }} className={classes.typo} variant="caption">{i.text}</Typography><br/>
             </div>
           )
