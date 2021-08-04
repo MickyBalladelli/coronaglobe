@@ -15,6 +15,10 @@ Data can be filtered by:
 
 Note: Data by Our World in Data is updated daily.
 
+When clicking on a country a detailed view appears
+
+![Detailed view](/project-images/details.png)
+
 TLDR; [Check this online demo at cloudno.de](http://coronaglobe.cloudno.de/)
 
 
