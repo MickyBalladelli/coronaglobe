@@ -34,11 +34,11 @@ const World = (props) => {
     }
   }, [props.format])
 
-  function onClick(element, e) {
+  function onClick(element) {
     setGlobalState({selected: element})
   }
 
-  function onHover(element, prev) {
+  function onHover(element) {
     setGlobalState({selected: element})
   }
   return (
