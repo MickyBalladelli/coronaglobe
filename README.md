@@ -1,13 +1,8 @@
 # Covid Globe
-
-![Covid Globe](/project-images/covid-globe-flat.png)
-
+![Covid Globe](/project-images/polygons.png)
 The Covid Globe, a global view of Covid pandemia using Javascript and React.
 
 Covid Globe is a React based Web application leveraging Vasco Asturiano globe.gl components [https://github.com/vasturiano/react-globe.gl](https://github.com/vasturiano/react-globe.gl) and COVID-19 Dataset by Our World in Data [https://github.com/owid/covid-19-data](https://github.com/owid/covid-19-data).
-
-A polygon version of the globe can be selected:
-![Polygons](/project-images/polygons.png)
 
 Data can be filtered by:
 
