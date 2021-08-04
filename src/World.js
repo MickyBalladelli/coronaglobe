@@ -30,7 +30,6 @@ const World = (props) => {
         globeEl.current.camera().updateProjectionMatrix()
         globeEl.current.renderer().setSize(window.innerWidth, window.innerHeight)
       }, false)
-
     }
   }, [props.format])
 
@@ -41,46 +40,7 @@ const World = (props) => {
 
   return (
     <div className={classes.root}>
-      {props.covid && props.cites && props.format === 'Lines' &&
-        <Globe
-          ref={globeEl}
-          globeImageUrl="/earth-night.jpg"
-          bumpImageUrl="/earth-topology.png"
-          backgroundImageUrl="/night-sky.png"
-
-          arcsData={props.covid}
-          arcDashLength={1}
-          arcDashGap={1}
-          arcDashInitialGap={0}
-          arcDashAnimateTime={4000}
-          arcsTransitionDuration={1000}
-          arcStroke={2}
-          arcStartLat={d => +d.lat}
-          arcStartLng={d => +d.lng}
-          arcEndLat={d => +d.lat}
-          arcEndLng={d => +d.lng}
-          arcLabel={d =>  d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value}` : `${d.country}: 0`}
-          arcColor={d => d[props.filterBy] ? d[props.filterBy].color : '#fff'}
-          arcAltitude={d =>  d[props.filterBy] ? d[props.filterBy].altitude : 0.0000000001}
-          onArcClick={onClick}
-
-          pointsData={props.covid}
-          pointColor={() => 'orange'}
-          pointAltitude={0}
-          pointRadius={0.5}
-          pointsMerge={true}
-
-          labelsData={props.cites}
-          labelLat={d => d.properties.latitude}
-          labelLng={d => d.properties.longitude}
-          labelText={d => d.properties.name}
-          labelSize={d => Math.sqrt(d.properties.pop_max) * 4e-4}
-          labelDotRadius={d => Math.sqrt(d.properties.pop_max) * 4e-4}
-          labelColor={() => 'rgba(255, 165, 0, 0.75)'}
-          labelResolution={2}
-          />
-      }
-      {props.format === 'Polygons' && props.covid && props.cites &&
+      {props.covid && props.cites &&
         <Globe
           ref={globeEl}
           globeImageUrl="/earth-night.jpg"

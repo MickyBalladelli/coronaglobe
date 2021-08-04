@@ -15,7 +15,6 @@ function App() {
 
   useEffect(() => {
     setGlobalState({ 
-      format: 'Polygons',
       filterBy: 'new_cases',
       handle: handle,
       selected: null,
@@ -30,7 +29,7 @@ function App() {
       <Appbar />
       <FullScreen handle={handle}>
         <Console filterBy={globalState.filterBy} covid={covid} />
-        <World filterBy={globalState.filterBy} covid={covid} cites={cites} format={globalState.format} />
+        <World filterBy={globalState.filterBy} covid={covid} cites={cites} />
         <Details />
       </FullScreen>
     </div>    
