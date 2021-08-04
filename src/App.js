@@ -6,6 +6,7 @@ import Console from './Console'
 import { useState, useEffect } from 'react'
 import useCustom from './CustomHooks'
 import { FullScreen, useFullScreenHandle } from "react-full-screen"
+import Details from './Details'
 
 function App() {
   const [covid, setCovid] = useState([])
@@ -31,6 +32,7 @@ function App() {
       <FullScreen handle={handle}>
         <Console filterBy={globalState.filterBy} covid={covid} />
         <World filterBy={globalState.filterBy} covid={covid} cites={cites} format={globalState.format} />
+        <Details />
       </FullScreen>
     {/*
       <header className="App-header">

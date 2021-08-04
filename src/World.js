@@ -35,11 +35,11 @@ const World = (props) => {
   }, [props.format])
 
   function onClick(element) {
+    console.log(element)
     setGlobalState({selected: element})
   }
 
   function onHover(element) {
-    setGlobalState({selected: element})
   }
   return (
     <div className={classes.root}>
