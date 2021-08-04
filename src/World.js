@@ -39,8 +39,6 @@ const World = (props) => {
     setGlobalState({selected: element})
   }
 
-  function onHover(element) {
-  }
   return (
     <div className={classes.root}>
       {props.covid && props.cites && props.format === 'Lines' &&
@@ -64,6 +62,7 @@ const World = (props) => {
           arcLabel={d =>  d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value}` : `${d.country}: 0`}
           arcColor={d => d[props.filterBy] ? d[props.filterBy].color : '#fff'}
           arcAltitude={d =>  d[props.filterBy] ? d[props.filterBy].altitude : 0.0000000001}
+          onArcClick={onClick}
 
           pointsData={props.covid}
           pointColor={() => 'orange'}
@@ -95,7 +94,6 @@ const World = (props) => {
           polygonLabel={d =>  d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value}` : `${d.country}: no value` }
           polygonsTransitionDuration={1000}
           onPolygonClick={onClick}
-          onPolygonHover={onHover}
         />
 
       }
