@@ -28,7 +28,7 @@ export default function Appbar() {
       <AppBar position="absolute" color="inherit" >
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Coronavirus Globe
+            Corona Globe
           </Typography>
           <Fullscreen/>
           <Filter />          
