@@ -2,7 +2,6 @@
 //       total_cases, new_cases, total_deaths, new_deaths, icu_patients, hosp_patients
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import useCustom from './CustomHooks'
@@ -20,10 +19,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Filter() {
   const classes = useStyles()
   const [state, setState] = React.useState({ filter: "new_cases" })
-  const [globalState, setGlobalState] = useCustom()
+  const [, setGlobalState] = useCustom()
 
-  const handleChange = (event) => {
-    const name = event.target.name
+  const handleChange = (event) => {    
     setState({filterBy: event.target.value})
     setGlobalState({filterBy: event.target.value})
   }

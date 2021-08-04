@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const World = (props) => {
   const globeEl = useRef()
   const classes = useStyles()
-  const [globalState, setGlobalState] = useCustom()
+  const [, setGlobalState] = useCustom()
 
   useEffect(() => {
     if (globeEl && globeEl.current) {

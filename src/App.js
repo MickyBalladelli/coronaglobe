@@ -1,6 +1,5 @@
 import Appbar from './Appbar'
 import { getCovidData, getCityData } from './utils/serverCalls'
-import France from './react-departements/France'
 import World from './World'
 import Console from './Console'
 import { useState, useEffect } from 'react'
@@ -24,7 +23,7 @@ function App() {
     getCovidData((d) => setCovid(d))
     getCityData((d) => setCites(d))
 
-  }, [])  
+  }, [handle, setGlobalState])  
 
   return (
     <div>
@@ -34,16 +33,7 @@ function App() {
         <World filterBy={globalState.filterBy} covid={covid} cites={cites} format={globalState.format} />
         <Details />
       </FullScreen>
-    {/*
-      <header className="App-header">
-        <img src={logo} className="animated-logo" alt="logo" />
-        <France departements={[75, 89, 21, 33, 47, 74, "2a", 976]} />
-
-        
-      </header>
-    */}
-    </div>
-    
+    </div>    
   )
 }
 

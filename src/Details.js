@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import useCustom from './CustomHooks'
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 
 export default function Details (props) {
   const classes = useStyles()  
-  const [globalState, setGlobalState] = useCustom()
+  const [globalState, ] = useCustom()
 
   function getColor(c){
     if (c === 'rgb(128, 0, 38)') {

@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Fullscreen() {
   const classes = useStyles()
-  const [globalState, setGlobalState] = useCustom()
+  const [globalState, ] = useCustom()
 
   const handleClick = () => {
     if (globalState && globalState.handle) {

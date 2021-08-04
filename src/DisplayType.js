@@ -6,13 +6,10 @@ import FormControl from '@material-ui/core/FormControl'
 import useCustom from './CustomHooks'
 
 export default function DisplayType() {
-  const [value, setValue] = React.useState('')
-  const [globalState, setGlobalState] = useCustom()
+  const [, setGlobalState] = useCustom()
 
-  const handleRadioChange = (event) => {
-    setValue(event.target.value)
+  const handleRadioChange = (event) => {    
     setGlobalState({ format: event.target.value})
-    console.log(event.target.value)
   }
   return (
     <FormControl component="fieldset">
