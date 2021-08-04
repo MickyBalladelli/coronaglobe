@@ -47,7 +47,7 @@ export default function Console (props) {
   const [current, setCurrent] = useState(0)
   const [consoleData, setConsoleData] = useState([])
 
-    useInterval(() => { 
+  useInterval(() => { 
     
     if (props.covid && props.covid.length > 0) {
       let dataType = ''
