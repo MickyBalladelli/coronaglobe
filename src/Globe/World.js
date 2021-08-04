@@ -32,9 +32,14 @@ const World = (props) => {
     }
   }, [props.format])
 
-  
+  function onClick(element, e) {
+    console.log(element)
 
+  }
 
+  function onHover(element, prev) {
+    console.log(element)
+  }
   return (
     <div className={classes.root}>
       {props.covid && props.cites && props.format === 'Lines' &&
@@ -88,6 +93,8 @@ const World = (props) => {
           polygonSideColor={() => 'rgba(0, 255, 255, 0.15)'}
           polygonLabel={d =>  d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value}` : `${d.country}: no value` }
           polygonsTransitionDuration={1000}
+          onPolygonClick={onClick}
+          onPolygonHover={onHover}
         />
 
       }
