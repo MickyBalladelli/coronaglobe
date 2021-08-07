@@ -1,6 +1,6 @@
 # Corona Globe
 
-[Online demo](http://coronaglobe.cloudno.de/)
+## [Online demo](http://coronaglobe.cloudno.de/)
 
 ![Corona Globe](/project-images/polygons.png)
 Corona Globe, a global view of Covid pandemia using Javascript and React.
