@@ -69,6 +69,7 @@ function parseCovidItem(item, filterBy, minValue, maxValue) {
   }
   return null
 }
+
 function parseCovidData(covidData, countryData, countryGeoData) {
   const combinedData = []
 
@@ -91,6 +92,9 @@ function parseCovidData(covidData, countryData, countryGeoData) {
     }
 
     if (geo.properties !== undefined && c.country !== undefined) {            
+
+      const country = covidData.filter((i) => i.location === c.country)
+
       let o = {
         country:    c.country,
         lat:        c.lat,
@@ -98,7 +102,7 @@ function parseCovidData(covidData, countryData, countryGeoData) {
         geometry:   geo.geometry,
         bbox:       geo.bbox,
         properties: geo.properties,
-        date:       covidData[0].last_updated_date
+        date:       country[0].last_updated_date
       }
 
       o = pushFilteredData(o, item, covidData, 'total_cases')
@@ -107,8 +111,8 @@ function parseCovidData(covidData, countryData, countryGeoData) {
       o = pushFilteredData(o, item, covidData, 'new_deaths')
       o = pushFilteredData(o, item, covidData, 'icu_patients')
       o = pushFilteredData(o, item, covidData, 'hosp_patients')
-/*      if (o.properties.NAME_CIAWF === "Hong Kong"){
-        console.log(covidData)
+      /*if (o.properties.NAME_CIAWF === "Finland"){
+        console.log(country)
       }*/
       combinedData.push(o)
     }
