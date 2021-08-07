@@ -20,7 +20,7 @@ Note: Data by Our World in Data is updated daily.
 
 When clicking on a country a detailed view appears
 
-![Detailed view](/project-images/details.png)
+![Detailed view](/project-images/full-view.png)
 
 ## Getting started
 
