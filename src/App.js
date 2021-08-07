@@ -7,6 +7,13 @@ import useCustom from './CustomHooks'
 import { FullScreen, useFullScreenHandle } from "react-full-screen"
 import Details from './Details'
 import Charts from './Charts'
+import { ThemeProvider, createTheme } from '@material-ui/core/styles'
+
+const theme = createTheme({
+  palette: {
+    type: "dark"
+  }
+})
 
 function App() {
   const [covid, setCovid] = useState([])
@@ -30,8 +37,9 @@ function App() {
 
   }, [handle, setGlobalState])  
 
+  console.log(theme)
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <Appbar />
       <FullScreen handle={handle}>
         <Console filterBy={globalState.filterBy} covid={covid} />
@@ -39,7 +47,7 @@ function App() {
         <Details />
         <Charts data={dataOverTime} filterBy={globalState.filterBy} />
       </FullScreen>
-    </div>    
+    </ThemeProvider>  
   )
 }
 
