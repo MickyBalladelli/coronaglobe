@@ -30,9 +30,13 @@ Download the project in a folder of your choice, then, you can run:
 
 Followed by 
 
+### `npm start`
+
+If you want to produce a production build:
+
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the app in the `build` folder.\
 Once the project has built you can start it by executing
 
 ### `node build/server.js`
