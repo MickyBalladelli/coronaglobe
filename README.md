@@ -1,4 +1,7 @@
 # Corona Globe
+
+[Online demo](http://coronaglobe.cloudno.de/)
+
 ![Corona Globe](/project-images/polygons.png)
 Corona Globe, a global view of Covid pandemia using Javascript and React.
 
@@ -18,9 +21,6 @@ Note: Data by Our World in Data is updated daily.
 When clicking on a country a detailed view appears
 
 ![Detailed view](/project-images/details.png)
-
-TLDR; [Check this online demo at cloudno.de](http://coronaglobe.cloudno.de/)
-
 
 ## Getting started
 
