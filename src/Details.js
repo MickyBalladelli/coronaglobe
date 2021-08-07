@@ -10,8 +10,8 @@ const useStyles = makeStyles({
     left: '30%',
     right: '40%',
     bottom:      10,
-    width:       '400px',
-    height:      '200px',
+    width:       '30%',
+    height:      '25%',
     margin:  '0 auto',
     opacity:     0.7,
     pointerEvents: 'none',
@@ -40,7 +40,7 @@ export default function Details (props) {
     <div className={classes.root} style={{ backgroundColor: "black" }}>
       { globalState.selected !== null && globalState.selected !== undefined &&        
         <div>
-          <Typography style={{ "color": '#fff' }} className={classes.typo} variant="caption">{globalState.selected.country}</Typography><br/>
+          <Typography style={{ "color": '#fff' }} className={classes.typo} variant="h4">{globalState.selected.country}</Typography><br/>
           <Typography style={{ "color": '#fff' }} className={classes.typo} variant="caption">Last updated: {globalState.selected.date}</Typography><br/>
           {globalState.selected.new_cases &&
           <div>
