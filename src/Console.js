@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     position:    'absolute',
     bottom:      10,
     width:       '450px',
-    height:      '200px',
+    height:      '30%',
     marginLeft:  'auto',
     marginRight: 'auto',
     opacity:     0.7,
@@ -39,7 +39,7 @@ function useInterval(callback, delay, param) {
   }, [delay], param)
 }
 
-const MAX_ELEMENTS = 8
+const MAX_ELEMENTS = 13
 
 export default function Console (props) {
   const classes = useStyles()
