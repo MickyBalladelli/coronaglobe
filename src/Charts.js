@@ -26,8 +26,7 @@ export default function Charts (props) {
   useEffect(() => {
     if (globalState.selected) {
       const countryData = props.data.filter((i) => i.location === globalState.selected.country)
-      getData(countryData)      
-      console.log(countryData)
+      getData(countryData)
     }
   }, [globalState.selected, props.data])  
 
