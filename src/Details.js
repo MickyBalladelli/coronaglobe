@@ -7,9 +7,9 @@ const useStyles = makeStyles({
   root: {
     'z-index':   1000,
     position: 'absolute',
-    left: '40%',
+    left: '30%',
     right: '40%',
-    bottom:      0,
+    bottom:      10,
     width:       '400px',
     height:      '200px',
     margin:  '0 auto',

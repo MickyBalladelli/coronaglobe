@@ -6,7 +6,7 @@ const useStyles = makeStyles({
   fixed: {
     'z-index':   1000,
     position:    'absolute',
-    bottom:      0,
+    bottom:      10,
     width:       '450px',
     height:      '200px',
     marginLeft:  'auto',

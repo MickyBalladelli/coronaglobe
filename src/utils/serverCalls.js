@@ -8,6 +8,13 @@ export function getCityData(callback) {
   )
 }
 
+export function getDataOverTime(callback) {
+  fetch('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv')
+  .then(res => res.text())
+  .then(d =>  csvToArray(d, ','))
+  .then((d) => callback(d)
+  )
+}
 export function getCovidData(callback) {  
   Promise.all([
     fetch('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/latest/owid-covid-latest.csv')
