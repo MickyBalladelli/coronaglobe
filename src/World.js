@@ -37,9 +37,9 @@ const World = (props) => {
     setGlobalState({selected: element})
   }
   function onHover(element) {
-    if (element) {
+    /*if (element) {
       setGlobalState({selected: element})
-    }
+    }*/
   }
 
   return (

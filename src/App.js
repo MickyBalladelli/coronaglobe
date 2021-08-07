@@ -34,7 +34,7 @@ function App() {
         <Console filterBy={globalState.filterBy} covid={covid} />
         <World filterBy={globalState.filterBy} covid={covid} cites={cites} />
         <Details />
-        <Charts data={dataOverTime}/>
+        <Charts data={dataOverTime} filterBy={globalState.filterBy} />
       </FullScreen>
     </div>    
   )
