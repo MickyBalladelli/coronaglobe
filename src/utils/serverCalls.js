@@ -8,13 +8,6 @@ export function getCityData(callback) {
   )
 }
 
-export function getDataOverTime(callback) {
-  fetch('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv')
-  .then(res => res.text())
-  .then(d =>  csvToArray(d, ','))
-  .then((d) => callback(d)
-  )
-}
 export function getCovidData(callback) {  
   Promise.all([
     fetch('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/latest/owid-covid-latest.csv')
@@ -22,18 +15,17 @@ export function getCovidData(callback) {
       .then(d =>  csvToArray(d, ',')),
     fetch('/datasets/countries.json')
       .then(res => res.json())
-      .then(d => { 
-        return d
-      }),
+      .then(d => d),
     fetch('/datasets/countries.geojson')
       .then(res => res.json())
-      .then(d => { 
-        return d
-      })
-
-  ]).then(([covidData, countryData, countryGeoData]) => {            
+      .then(d => d),
+    fetch('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv')
+    .then(res => res.text())
+    .then(d => csvToArray(d, ','))
+    .then((d) => d)
+  ]).then(([covidData, countryData, countryGeoData, dataOverTime]) => {            
     const combinedData = parseCovidData(covidData, countryData, countryGeoData) 
-    callback(combinedData)
+    callback(combinedData, dataOverTime)
   })    
 }
 

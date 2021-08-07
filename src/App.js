@@ -1,5 +1,5 @@
 import Appbar from './Appbar'
-import { getCovidData, getCityData, getDataOverTime } from './utils/serverCalls'
+import { getCovidData, getCityData } from './utils/serverCalls'
 import World from './World'
 import Console from './Console'
 import { useState, useEffect } from 'react'
@@ -21,9 +21,12 @@ function App() {
       handle: handle,
       selected: null,
     })
-    getCovidData((d) => setCovid(d))
+    
+    getCovidData((d, dot) => {
+      setCovid(d)
+      setDataOverTime(dot)
+    })
     getCityData((d) => setCites(d))
-    getDataOverTime((d) => setDataOverTime(d))
 
   }, [handle, setGlobalState])  
 
