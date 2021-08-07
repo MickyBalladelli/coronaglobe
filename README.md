@@ -32,7 +32,7 @@ Followed by
 
 ### `npm start`
 
-If you want to produce a production build:
+If you want to generate a production build:
 
 ### `npm run build`
 
