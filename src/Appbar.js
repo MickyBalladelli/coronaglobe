@@ -9,8 +9,6 @@ import Fullscreen from './Fullscreen'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: '#fff',
-    color: '#3B3131',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -26,7 +24,7 @@ export default function Appbar() {
   return (
     <div className={classes.root}>
       <AppBar position="absolute" color="inherit" >
-        <Toolbar>
+        <Toolbar >
           <Typography variant="h6" className={classes.title}>
             Corona Globe
           </Typography>
