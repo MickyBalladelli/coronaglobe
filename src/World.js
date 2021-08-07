@@ -34,8 +34,12 @@ const World = (props) => {
   }, [props.format])
 
   function onClick(element) {
-    console.log(element)
     setGlobalState({selected: element})
+  }
+  function onHover(element) {
+    if (element) {
+      setGlobalState({selected: element})
+    }
   }
 
   return (
@@ -54,6 +58,7 @@ const World = (props) => {
           polygonLabel={d =>  d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value}` : `${d.country}: no value` }
           polygonsTransitionDuration={1000}
           onPolygonClick={onClick}
+          onPolygonHover={onHover}
         />
 
       }
