@@ -1,6 +1,3 @@
-// properties:
-//   format, string, can be "lines" or "polygons"
-
 import { useEffect, useRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Globe from 'react-globe.gl'
@@ -20,7 +17,7 @@ const World = (props) => {
   const [, setGlobalState] = useCustom()
 
   useEffect(() => {
-    if (globeEl && globeEl.current) {
+    if (props.covid && globeEl && globeEl.current) {
       globeEl.current.controls().autoRotate = true
       globeEl.current.controls().autoRotateSpeed = -0.2
 
@@ -31,7 +28,7 @@ const World = (props) => {
         globeEl.current.renderer().setSize(window.innerWidth, window.innerHeight)
       }, false)
     }
-  }, [props.format])
+  }, [props.covid])
 
   function onClick(element) {
     setGlobalState({selected: element})
