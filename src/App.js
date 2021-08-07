@@ -37,7 +37,6 @@ function App() {
 
   }, [handle, setGlobalState])  
 
-  console.log(theme)
   return (
     <ThemeProvider theme={theme}>
       <Appbar />
