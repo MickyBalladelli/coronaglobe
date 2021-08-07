@@ -41,6 +41,7 @@ export default function Details (props) {
       { globalState.selected !== null && globalState.selected !== undefined &&        
         <div>
           <Typography style={{ "color": '#fff' }} className={classes.typo} variant="caption">{globalState.selected.country}</Typography><br/>
+          <Typography style={{ "color": '#fff' }} className={classes.typo} variant="caption">Last updated: {globalState.selected.date}</Typography><br/>
           {globalState.selected.new_cases &&
           <div>
             <Typography style={{ "color": getColor(globalState.selected.new_cases.color) }} className={classes.typo} variant="caption">New cases: {globalState.selected.new_cases.value}</Typography><br/>
