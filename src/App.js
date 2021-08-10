@@ -44,9 +44,9 @@ function App() {
         <Console filterBy={globalState.filterBy} covid={covid} />
         <World filterBy={globalState.filterBy} covid={covid} cites={cites} />
         {globalState.selected &&
-        <div style={{pointerEvents: 'none'}}>
-        <Details />
-        <Charts data={dataOverTime} filterBy={globalState.filterBy} />
+        <div>
+          <Details />
+          <Charts data={dataOverTime} filterBy={globalState.filterBy} />
         </div>
         }
       </FullScreen>
