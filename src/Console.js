@@ -39,7 +39,7 @@ function useInterval(callback, delay, param) {
   }, [delay], param)
 }
 
-const MAX_ELEMENTS = 13
+const MAX_ELEMENTS = 10
 
 export default function Console (props) {
   const classes = useStyles()
