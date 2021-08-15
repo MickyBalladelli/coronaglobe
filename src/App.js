@@ -1,55 +1,93 @@
-import Appbar from './Appbar'
 import { getCovidData, getCityData } from './utils/serverCalls'
 import World from './World'
-import Console from './Console'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import useCustom from './CustomHooks'
-import { FullScreen, useFullScreenHandle } from "react-full-screen"
 import Details from './Details'
 import Charts from './Charts'
-import { ThemeProvider, createTheme } from '@material-ui/core/styles'
+import { ThemeProvider, createTheme, makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
+import Filter from './Filter'
 
 const theme = createTheme({
   palette: {
     type: "dark"
   }
 })
+const useStyles = makeStyles({
+  grid: {
+    backgroundColor: 'black',
+    opacity:     1,
+  },
+  globe: {
+    height: 700, 
+  },
+})
 
 function App() {
+  const classes = useStyles()
   const [covid, setCovid] = useState([])
   const [cites, setCites] = useState([])
   const [dataOverTime, setDataOverTime] = useState([])
   const [globalState, setGlobalState] = useCustom()
-  const handle = useFullScreenHandle()
+  const [height, setHeight] = useState(0)
+  const [width, setWidth] = useState(0)
+  const globe = useRef(null)
+  
+  // eslint-disable-next-line
+  useEffect(() => {
+    if (globe && globe.current && globe.current.clientWidth) {
+      setWidth(globe.current.clientWidth) 
+      setHeight(globe.current.clientHeight) 
+    }
+  })
 
   useEffect(() => {
     setGlobalState({ 
       filterBy: 'new_cases',
-      handle: handle,
       selected: null,
     })
-    
     getCovidData((d, dot) => {
       setCovid(d)
       setDataOverTime(dot)
     })
     getCityData((d) => setCites(d))
 
-  }, [handle, setGlobalState])  
-
+  }, [setGlobalState])
+  
+  useEffect(() => {
+    const selectCountry='France'
+    const element = covid.filter(i => i.country === selectCountry)
+    if (element) {
+      setGlobalState({selected: element[0]})
+    }
+  }, [covid, setGlobalState])
+    
   return (
     <ThemeProvider theme={theme}>
-      <Appbar />
-      <FullScreen handle={handle}>
-        <Console filterBy={globalState.filterBy} covid={covid} />
-        <World filterBy={globalState.filterBy} covid={covid} cites={cites} />
+      <div>
         {globalState.selected &&
-        <div>
-          <Details />
-          <Charts data={dataOverTime} filterBy={globalState.filterBy} />
-        </div>
+          <Grid container spacing={3} className={classes.grid}>
+            <Grid item xs={12} sm={4}>
+              <Details />
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <Grid container spacing={3} direction="column">
+                <Grid item xs={6}>
+                  <Filter />  
+                </Grid>
+                <Grid item xs={11}>
+                  <Charts data={dataOverTime} filterBy={globalState.filterBy} />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <div className={classes.globe} ref={globe} id="globe">
+                <World filterBy={globalState.filterBy} covid={covid} cites={cites} height={height} width={width}/>
+              </div>
+            </Grid>
+          </Grid>        
         }
-      </FullScreen>
+      </div>
     </ThemeProvider>  
   )
 }

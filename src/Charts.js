@@ -6,17 +6,12 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 const useStyles = makeStyles({
   root: {
     'z-index':   1000,
-    position: 'absolute',
-    left: '60%',
-    right: '40%',
-    bottom:      10,
-    width:       '35%',
-    height:      '30%',
-    margin:  '0 auto',
-    opacity:     0.7,
+    height:      '250px',
+    width:      '90%',
+    backgroundColor: 'black',
+    opacity:     1,
   },
 })
-
 
 export default function Charts (props) {
   const classes = useStyles()  
@@ -48,29 +43,31 @@ export default function Charts (props) {
   }
 
   return (
-    <div className={classes.root} style={{ backgroundColor: "black" }}>
+    <>
     { globalState.selected !== null && globalState.selected !== undefined &&   
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="1 1" />
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey={props.filterBy} stroke="rgb(97, 205, 187)" dot={false} />
-        </LineChart>
-      </ResponsiveContainer>
+      <div className={classes.root}>
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart
+            width={500}
+            height={300}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="1 1" />
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey={props.filterBy} stroke="rgb(97, 205, 187)" dot={false} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     }
-    </div>
+    </>
   )
 }

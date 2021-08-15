@@ -5,15 +5,11 @@ import useCustom from './CustomHooks'
 
 const useStyles = makeStyles({
   root: {
-    'z-index':   1000,
-    position: 'absolute',
-    left: '30%',
-    right: '40%',
-    bottom:      10,
-    width:       '30%',
-    height:      '25%',
-    margin:  '0 auto',
-    opacity:     0.7,
+    'z-index':   2000,
+    height:      '300px',
+    width:       '90%',
+    backgroundColor: 'black',
+    opacity:     1,
     pointerEvents: 'none',
   },
   typo: {
@@ -37,9 +33,9 @@ export default function Details (props) {
   }
 
   return (
-    <div className={classes.root} style={{ backgroundColor: "black" }}>
-      { globalState.selected !== null && globalState.selected !== undefined &&        
-        <div>
+    <div classes={classes.root} style={{ backgroundColor: "black" }}>
+      { globalState.selected !== null && globalState.selected !== undefined &&
+        <div>    
           <Typography style={{ "color": '#fff' }} className={classes.typo} variant="h4">{globalState.selected.country}</Typography><br/>
           <Typography style={{ "color": '#fff' }} className={classes.typo} variant="caption">Last updated: {globalState.selected.date}</Typography><br/>
           {globalState.selected.new_cases &&
@@ -72,9 +68,8 @@ export default function Details (props) {
             <Typography style={{ "color": getColor(globalState.selected.total_cases.color) }} className={classes.typo} variant="caption">Total cases: {globalState.selected.total_cases.value}</Typography><br/>
           </div>
           }   
-        </div>
-      }      
-
+        </div> 
+      }
     </div>
   )
 }

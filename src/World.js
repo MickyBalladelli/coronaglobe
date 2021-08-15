@@ -4,9 +4,8 @@ import Globe from 'react-globe.gl'
 import useCustom from './CustomHooks'
 
 const useStyles = makeStyles((theme) => ({
-  root:{
-    minHeight: '100%',
-    height: '100%'
+  world:{
+    position: 'relative !important',
   },
 }))
 
@@ -16,6 +15,7 @@ const World = (props) => {
   const classes = useStyles()
   const [, setGlobalState] = useCustom()
 
+
   useEffect(() => {
     if (props.covid && globeEl && globeEl.current) {
       globeEl.current.controls().autoRotate = true
@@ -23,9 +23,11 @@ const World = (props) => {
 
       globeEl.current.pointOfView({ altitude: 6 }, 5000)
       window.addEventListener('resize', () => {
-        globeEl.current.camera().aspect = window.innerWidth / window.innerHeight
-        globeEl.current.camera().updateProjectionMatrix()
-        globeEl.current.renderer().setSize(window.innerWidth, window.innerHeight)
+        if (globeEl && globeEl.current) {
+          globeEl.current.camera().aspect = 400 / 300 //window.innerWidth / window.innerHeight
+          globeEl.current.camera().updateProjectionMatrix()
+          globeEl.current.renderer().setSize(400, 300)//(window.innerWidth, window.innerHeight)
+        }
       }, false)
     }
   }, [props.covid])
@@ -40,10 +42,13 @@ const World = (props) => {
   }
 
   return (
-    <div className={classes.root}>
-      {props.covid && props.cites &&
+    <div> 
+      {props.covid && props.cites && props.width !== 0 && props.height !== 0 &&
         <Globe
+          height={props.height}
+          width={props.width}
           ref={globeEl}
+          className={classes.world}
           globeImageUrl="/earth-night.jpg"
           bumpImageUrl="/earth-topology.png"
           backgroundImageUrl="/night-sky.png"
