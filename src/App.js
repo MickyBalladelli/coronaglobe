@@ -7,6 +7,7 @@ import Charts from './Charts'
 import { ThemeProvider, createTheme, makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Filter from './Filter'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const theme = createTheme({
   palette: {
@@ -65,6 +66,11 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div>
+        {!globalState.selected &&
+          <Grid container justifyContent="center" alignItems="center">
+              <CircularProgress />
+          </Grid>
+        }        
         {globalState.selected &&
           <Grid container spacing={3} className={classes.grid}>
             <Grid item xs={12} sm={4}>

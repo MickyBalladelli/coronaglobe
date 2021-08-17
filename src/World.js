@@ -62,7 +62,6 @@ const World = (props) => {
           onPolygonClick={onClick}
           onPolygonHover={onHover}
         />
-
       }
     </div>
   )
