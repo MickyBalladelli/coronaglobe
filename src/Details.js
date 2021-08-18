@@ -68,6 +68,16 @@ export default function Details (props) {
             <Typography style={{ "color": getColor(globalState.selected.total_cases.color) }} className={classes.typo} variant="caption">Total cases: {globalState.selected.total_cases.value}</Typography><br/>
           </div>
           }   
+          {globalState.selected.new_cases_per_million &&
+            <div>
+              <Typography style={{ "color": getColor(globalState.selected.new_cases_per_million.color) }} className={classes.typo} variant="caption">New cases per million: {globalState.selected.new_cases_per_million.value}</Typography><br/>
+            </div>
+          }   
+          {globalState.selected.new_deaths_per_million &&
+              <div>
+                <Typography style={{ "color": getColor(globalState.selected.new_deaths_per_million.color) }} className={classes.typo} variant="caption">New deaths per million: {globalState.selected.new_deaths_per_million.value}</Typography><br/>
+              </div>
+          }   
         </div> 
       }
     </div>

@@ -62,7 +62,7 @@ function App() {
       setGlobalState({selected: element[0]})
     }
   }, [covid, setGlobalState])
-    
+
   return (
     <ThemeProvider theme={theme}>
       <div>

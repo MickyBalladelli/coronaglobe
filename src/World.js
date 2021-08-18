@@ -9,19 +9,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-// values for prop filterBy can be total_cases, new_cases, total_deaths, new_deaths, icu_patients, hosp_patients
 const World = (props) => {
   const globeEl = useRef()
   const classes = useStyles()
   const [, setGlobalState] = useCustom()
 
+  useEffect(() => {
+    if (globeEl && globeEl.current) {
+      globeEl.current.pointOfView({ altitude: 8 }, 0)
+    }
+  }, [globeEl])
 
   useEffect(() => {
     if (props.covid && globeEl && globeEl.current) {
       globeEl.current.controls().autoRotate = true
       globeEl.current.controls().autoRotateSpeed = -0.2
 
-      globeEl.current.pointOfView({ altitude: 6 }, 5000)
+      globeEl.current.pointOfView({ altitude: 8 }, 0)
       window.addEventListener('resize', () => {
         if (globeEl && globeEl.current) {
           globeEl.current.camera().aspect = 400 / 300 //window.innerWidth / window.innerHeight
@@ -44,7 +48,7 @@ const World = (props) => {
   return (
     <div> 
       {props.covid && props.cites && props.width !== 0 && props.height !== 0 &&
-        <Globe
+        <Globe          
           height={props.height}
           width={props.width}
           ref={globeEl}
@@ -61,6 +65,7 @@ const World = (props) => {
           polygonsTransitionDuration={1000}
           onPolygonClick={onClick}
           onPolygonHover={onHover}
+          pointOfView={{altitude: 8, ms: 0}}
         />
       }
     </div>

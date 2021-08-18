@@ -103,16 +103,16 @@ function parseCovidData(covidData, countryData, countryGeoData) {
         properties: geo.properties,
         date:       country[0].last_updated_date
       }
-
+//console.log(covidData)
       o = pushFilteredData(o, item, covidData, 'total_cases')
       o = pushFilteredData(o, item, covidData, 'new_cases')
       o = pushFilteredData(o, item, covidData, 'total_deaths')
       o = pushFilteredData(o, item, covidData, 'new_deaths')
       o = pushFilteredData(o, item, covidData, 'icu_patients')
       o = pushFilteredData(o, item, covidData, 'hosp_patients')
-      /*if (o.properties.NAME_CIAWF === "Finland"){
-        console.log(country)
-      }*/
+      o = pushFilteredData(o, item, covidData, 'new_cases_per_million')
+      o = pushFilteredData(o, item, covidData, 'new_deaths_per_million')
+
       combinedData.push(o)
     }
     else {

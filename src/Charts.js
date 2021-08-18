@@ -28,13 +28,15 @@ export default function Charts (props) {
   function getData(d) {
     const data = d.map((i) => {
       const o = {
-        date:          i.date,
-        new_cases:     i.new_cases,
-        new_deaths:    i.new_deaths,
-        total_cases:   i.total_cases,
-        total_deaths:  i.total_deaths,
-        icu_patients:  i.icu_patients,
-        hosp_patients: i.hosp_patients,
+        date:                   i.date,
+        new_cases:              i.new_cases,
+        new_deaths:             i.new_deaths,
+        total_cases:            i.total_cases,
+        total_deaths:           i.total_deaths,
+        icu_patients:           i.icu_patients,
+        hosp_patients:          i.hosp_patients,
+        new_cases_per_million:  i.new_cases_per_million,
+        new_deaths_per_million: i.new_deaths_per_million,
       }
       return o
     })

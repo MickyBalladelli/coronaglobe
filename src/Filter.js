@@ -1,5 +1,3 @@
-//  filter allow selecting from one of the following values:
-//       total_cases, new_cases, total_deaths, new_deaths, icu_patients, hosp_patients
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import FormControl from '@material-ui/core/FormControl'
@@ -41,6 +39,8 @@ export default function Filter() {
           <option value={'total_deaths'}>Total deaths</option>
           <option value={'icu_patients'}>ICU patients</option>
           <option value={'hosp_patients'}>Hospitalized patients</option>
+          <option value={'new_cases_per_million'}>New cases per million</option>
+          <option value={'new_deaths_per_million'}>New deaths per million</option>
         </Select>
       </FormControl>
    </div>
