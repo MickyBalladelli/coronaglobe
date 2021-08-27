@@ -8,6 +8,7 @@ import { ThemeProvider, createTheme, makeStyles } from '@material-ui/core/styles
 import Grid from '@material-ui/core/Grid'
 import Filter from './Filter'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 const theme = createTheme({
   palette: {
@@ -65,6 +66,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <div>
         {!globalState.selected &&
           <Grid container justifyContent="center" alignItems="center">
