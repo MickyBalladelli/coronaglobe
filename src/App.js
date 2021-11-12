@@ -21,7 +21,9 @@ const useStyles = makeStyles({
     opacity:     1,
   },
   globe: {
-    height: 700, 
+    height: '850px',
+    width: '100%',
+    maxHeight: 'fill-available'
   },
   charts: {
     backgroundColor: 'transparent',
@@ -55,18 +57,8 @@ function App() {
   const [cites, setCites] = useState([])
   const [dataOverTime, setDataOverTime] = useState([])
   const [globalState, setGlobalState] = useCustom()
-  const [height, setHeight] = useState(0)
-  const [width, setWidth] = useState(0)
   const globe = useRef(null)
   
-  // eslint-disable-next-line
-  useEffect(() => {
-    if (globe && globe.current && globe.current.clientWidth) {
-      setWidth(globe.current.clientWidth) 
-      setHeight(globe.current.clientHeight) 
-    }
-  })
-
   useEffect(() => {
     setGlobalState({ 
       filterBy: 'new_cases',
@@ -99,8 +91,8 @@ function App() {
             </Grid>
           </div>
         }        
-        <div className={classes.globe} ref={globe} id="globe">
-                <World filterBy={globalState.filterBy} covid={covid} cites={cites} height={height} width={width}/>
+        <div className={classes.globe} ref={globe} id="globe" >
+                <World filterBy={globalState.filterBy} covid={covid} cites={cites} height={window.innerHeight} width={window.innerWidth} />
         </div>
         <div className={classes.charts}>
           <Grid container spacing={3} direction="column">
