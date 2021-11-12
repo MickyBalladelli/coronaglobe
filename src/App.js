@@ -36,6 +36,15 @@ const useStyles = makeStyles({
     width: 500,
     top: 0,
     left: 0,
+  },
+  circular: {
+    backgroundColor: 'transparent',
+    zIndex: 5000,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    top: 0,
+    left: 0,
   }
 
 })
@@ -84,9 +93,11 @@ function App() {
       <CssBaseline />
       <div>
         {!globalState.selected &&
-          <Grid container justifyContent="center" alignItems="center">
+          <div className={classes.circular}>
+            <Grid container justifyContent="center" alignItems="center">
               <CircularProgress />
-          </Grid>
+            </Grid>
+          </div>
         }        
         <div className={classes.globe} ref={globe} id="globe">
                 <World filterBy={globalState.filterBy} covid={covid} cites={cites} height={height} width={width}/>
