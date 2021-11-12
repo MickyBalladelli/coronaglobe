@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     'z-index':   2000,
     height:      '300px',
     width:       '90%',
-    backgroundColor: 'black',
+    backgroundColor: 'transparent',
     opacity:     1,
     pointerEvents: 'none',
   },
