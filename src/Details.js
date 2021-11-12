@@ -33,7 +33,7 @@ export default function Details (props) {
   }
 
   return (
-    <div classes={classes.root} style={{ backgroundColor: "black" }}>
+    <div classes={classes.root}>
       { globalState.selected !== null && globalState.selected !== undefined &&
         <div>    
           <Typography style={{ "color": '#fff' }} className={classes.typo} variant="h4">{globalState.selected.country}</Typography><br/>

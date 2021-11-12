@@ -23,6 +23,21 @@ const useStyles = makeStyles({
   globe: {
     height: 700, 
   },
+  charts: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    width: 500,
+    top: 0,
+    right: 0,
+  },
+  details: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    width: 500,
+    top: 0,
+    left: 0,
+  }
+
 })
 
 function App() {
@@ -73,28 +88,22 @@ function App() {
               <CircularProgress />
           </Grid>
         }        
-        {globalState.selected &&
-          <Grid container spacing={3} className={classes.grid}>
-            <Grid item xs={12} sm={4}>
-              <Details />
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <Grid container spacing={3} direction="column">
-                <Grid item xs={6}>
-                  <Filter />  
-                </Grid>
-                <Grid item xs={11}>
-                  <Charts data={dataOverTime} filterBy={globalState.filterBy} />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12}>
-              <div className={classes.globe} ref={globe} id="globe">
+        <div className={classes.globe} ref={globe} id="globe">
                 <World filterBy={globalState.filterBy} covid={covid} cites={cites} height={height} width={width}/>
-              </div>
+        </div>
+        <div className={classes.charts}>
+          <Grid container spacing={3} direction="column">
+            <Grid item xs={6}>
+              <Filter />  
             </Grid>
-          </Grid>        
-        }
+            <Grid item xs={11}>
+              <Charts data={dataOverTime} filterBy={globalState.filterBy} />
+            </Grid>
+          </Grid>
+        </div>
+        <div className={classes.details}>
+          <Details />
+        </div>
       </div>
     </ThemeProvider>  
   )
