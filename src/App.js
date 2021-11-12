@@ -28,9 +28,10 @@ const useStyles = makeStyles({
   charts: {
     backgroundColor: 'transparent',
     position: 'absolute',
-    width: 500,
+    width: 700,
     top: 0,
-    right: 0,
+    right: 10,
+    margin: 10
   },
   details: {
     backgroundColor: 'transparent',
