@@ -1,0 +1,1 @@
+﻿copy -recurse -force 'D:\Covid Globe\build\*' D:\cloudenode\8995-d13cb05e3d056791017ec5bca8485002
