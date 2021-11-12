@@ -5,11 +5,11 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 const useStyles = makeStyles({
   root: {
-    'z-index':   1000,
-    height:      '250px',
-    width:      '90%',
+    'z-index':       1000,
+    height:          '250px',
+    width:           '90%',
     backgroundColor: 'transparent',
-    opacity:     1,
+    opacity:         1,
   },
 })
 
