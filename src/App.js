@@ -29,9 +29,9 @@ const useStyles = makeStyles({
     backgroundColor: 'transparent',
     position: 'absolute',
     width: 700,
-    top: 0,
-    right: 0,
-    margin: 10
+    top: 5,
+    right: 5,
+    margin: 20
   },
   details: {
     backgroundColor: 'transparent',
