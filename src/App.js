@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     position: 'absolute',
     width: 700,
     top: 0,
-    right: 10,
+    right: 0,
     margin: 10
   },
   details: {
