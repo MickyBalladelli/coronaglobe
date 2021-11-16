@@ -28,9 +28,9 @@ const World = (props) => {
       globeEl.current.pointOfView({ altitude: 8 }, 0)
       window.addEventListener('resize', () => {
         if (globeEl && globeEl.current) {
-          globeEl.current.camera().aspect = 400 / 300 //window.innerWidth / window.innerHeight
+          globeEl.current.camera().aspect = window.innerWidth / window.innerHeight
           globeEl.current.camera().updateProjectionMatrix()
-          globeEl.current.renderer().setSize(400, 300)//(window.innerWidth, window.innerHeight)
+          globeEl.current.renderer().setSize(window.innerWidth, window.innerHeight)
         }
       }, false)
     }
