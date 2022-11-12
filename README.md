@@ -21,7 +21,7 @@ Note: Data by Our World in Data is updated daily.
 When clicking on a country a detailed view appears
 
 ![Detailed view](/project-images/detailedview.png)
-## [Online demo](http://coronaglobe.cloudno.de/)
+## [Online demo](https://coronaglobe-20kk.onrender.com/
 
 ## Getting started
 
