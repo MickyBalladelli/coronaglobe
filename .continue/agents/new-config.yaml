@@ -1,0 +1,23 @@
+name: local-qwen
+version: 1.0.0
+schema: v1
+
+models:
+  - name: Qwen 27B Chat
+    provider: ollama
+    model: qwen3.6:27b-coding-nvfp4
+    roles:
+      - chat
+      - edit
+
+  - name: Qwen 14B Fast
+    provider: ollama
+    model: qwen3:14b
+    roles:
+      - autocomplete
+
+  - name: Embeddings
+    provider: ollama
+    model: nomic-embed-text
+
+mcpServers: []

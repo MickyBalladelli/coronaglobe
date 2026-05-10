@@ -1,17 +1,14 @@
 import { useEffect, useRef } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { styled } from '@mui/material/styles'
 import Globe from 'react-globe.gl'
 import useCustom from './CustomHooks'
 
-const useStyles = makeStyles((theme) => ({
-  world:{
-    position: 'relative !important',
-  },
-}))
+const GlobeWrapper = styled('div')({
+  position: 'relative !important',
+})
 
 const World = (props) => {
   const globeEl = useRef()
-  const classes = useStyles()
   const [, setGlobalState] = useCustom()
 
   useEffect(() => {
@@ -31,28 +28,27 @@ const World = (props) => {
           globeEl.current.camera().aspect = window.innerWidth / window.innerHeight
           globeEl.current.camera().updateProjectionMatrix()
           globeEl.current.renderer().setSize(window.innerWidth, window.innerHeight)
-        }
-      }, false)
-    }
-  }, [props.covid])
+           }
+         }, false)
+       }
+     }, [props.covid])
 
   function onClick(element) {
     setGlobalState({selected: element})
-  }
+     }
   function onHover(element) {
-    /*if (element) {
+     /*if (element) {
       setGlobalState({selected: element})
-    }*/
-  }
+      }*/
+     }
 
   return (
-    <div> 
-      {props.covid && props.cites && props.width !== 0 && props.height !== 0 &&
-        <Globe          
+     <GlobeWrapper> 
+       {props.covid && props.cites && props.width !== 0 && props.height !== 0 &&
+         <Globe          
           height={props.height}
           width={props.width}
           ref={globeEl}
-          className={classes.world}
           globeImageUrl="/earth-night.jpg"
           bumpImageUrl="/earth-topology.png"
           backgroundImageUrl="/night-sky.png"
@@ -66,9 +62,10 @@ const World = (props) => {
           onPolygonClick={onClick}
           onPolygonHover={onHover}
           pointOfView={{altitude: 8, ms: 0}}
-        />
-      }
-    </div>
-  )
+
+         />
+       }
+     </GlobeWrapper>
+    )
 }
 export default World

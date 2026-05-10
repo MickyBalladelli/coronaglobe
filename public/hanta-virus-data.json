@@ -1,0 +1,128 @@
+[
+  {
+    "iso": "NL",
+    "country": "Netherlands",
+    "confirmed": "3",
+    "suspected": "0",
+    "deaths": "2",
+    "status": "Three lab-confirmed cases: one confirmed death on board (2 May); two confirmed survivors medically evacuated. Two on-board deaths total attributed by ship flag state (one confirmed; one probable).",
+    "source_url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON600"
+  },
+  {
+    "iso": "ZA",
+    "country": "South Africa",
+    "confirmed": "2",
+    "suspected": "0",
+    "deaths": "1",
+    "status": "Two lab-confirmed cases (NICD): one death in a Johannesburg clinic (26 Apr); one survivor in Johannesburg ICU.",
+    "source_url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON600"
+  },
+  {
+    "iso": "CH",
+    "country": "Switzerland",
+    "confirmed": "1",
+    "suspected": "0",
+    "deaths": "0",
+    "status": "Lab-confirmed case after disembarkation",
+    "source_url": "https://www.ecdc.europa.eu/en/publications-data/hantavirus-associated-cluster-illness-cruise-ship-ecdc-assessment-and"
+  },
+  {
+    "iso": "FR",
+    "country": "France",
+    "confirmed": "0",
+    "suspected": "1",
+    "deaths": "0",
+    "status": "Symptomatic contact under monitoring",
+    "source_url": "https://www.cnn.com/2026/05/07/world/hantavirus-ship-tenerife-outbreak-intl"
+  },
+  {
+    "iso": "SG",
+    "country": "Singapore",
+    "confirmed": "0",
+    "suspected": "0",
+    "deaths": "0",
+    "status": "Both residents under monitoring at the National Centre for Infectious Diseases tested PCR-negative for hantavirus (8 May 2026); remain in 30-day quarantine per CDA protocol.",
+    "source_url": "https://www.cda.gov.sg/news-and-events/public-health-measures-activated-for-two-singapore-residents-onboard-mv-hondius/"
+  },
+  {
+    "iso": "CA",
+    "country": "Canada",
+    "confirmed": "0",
+    "suspected": "0",
+    "deaths": "0",
+    "status": "Three Canadians self-isolating (two in Ontario, one in Quebec); four Canadians were on board MV Hondius (none symptomatic, PHAC 8 May); ship arrived Tenerife 10 May for evacuation.",
+    "source_url": "https://www.cbc.ca/news/canada/toronto/hantavirus-cruise-ontario-passengers-isolating-9.7191211"
+  },
+  {
+    "iso": "GB",
+    "country": "United Kingdom",
+    "confirmed": "0",
+    "suspected": "0",
+    "deaths": "0",
+    "status": "Contacts under monitoring; UKHSA confirms 2 British nationals with confirmed hantavirus (hospitalized in ZA and NL); repatriation to Arrowe Park Hospital (Wirral) on 10 May via FCDO charter.",
+    "source_url": "https://www.gov.uk/government/news/ukhsa-update-on-the-hantavirus-cruise-ship-outbreak"
+  },
+  {
+    "iso": "US",
+    "country": "United States",
+    "confirmed": "0",
+    "suspected": "0",
+    "deaths": "0",
+    "status": "7 US states monitoring residents; 17 Americans to be evaluated at Nebraska Medicine National Quarantine Unit (no mandatory quarantine per CDC, 9 May); 2 NJ residents monitoring after flight contact (not ship passengers); CDC EOC Level 3.",
+    "source_url": "https://www.nbcnews.com/health/health-news/hantavirus-response-us-states-cdc-cruise-ship-quarantine-rcna344303"
+  },
+  {
+    "iso": "AR",
+    "country": "Argentina",
+    "confirmed": "0",
+    "suspected": "0",
+    "deaths": "0",
+    "status": "Investigation of possible exposure source",
+    "source_url": "https://en.wikipedia.org/wiki/MV_Hondius_hantavirus_outbreak"
+  },
+  {
+    "iso": "CL",
+    "country": "Chile",
+    "confirmed": "0",
+    "suspected": "0",
+    "deaths": "0",
+    "status": "Investigation of possible exposure source",
+    "source_url": "https://en.wikipedia.org/wiki/MV_Hondius_hantavirus_outbreak"
+  },
+  {
+    "iso": "CV",
+    "country": "Cabo Verde",
+    "confirmed": "0",
+    "suspected": "0",
+    "deaths": "0",
+    "status": "Ship anchored 3-6 May; no community transmission",
+    "source_url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599"
+  },
+  {
+    "iso": "SH",
+    "country": "Saint Helena & Tristan da Cunha",
+    "confirmed": "0",
+    "suspected": "1",
+    "deaths": "0",
+    "status": "British national on Tristan da Cunha with suspected hantavirus; exposed during MV Hondius call at the island 13–15 April (UKHSA, 8 May).",
+    "source_url": "https://www.gov.uk/government/news/ukhsa-update-on-the-hantavirus-cruise-ship-outbreak"
+  },
+  {
+    "iso": "ES",
+    "country": "Spain",
+    "confirmed": "0",
+    "suspected": "2",
+    "deaths": "0",
+    "status": "Two suspected cases: woman hospitalised in Alicante after sharing a flight with a Hondius passenger who died in Johannesburg (Spain MoH, 8 May); second woman in Catalonia on the same KLM flight, initially missed in contact tracing after switching seats (Spain MoH, 9 May).",
+    "source_url": "https://www.euronews.com/health/2026/05/07/40-passengers-left-hantavirus-hit-cruise-ship"
+  },
+  {
+    "iso": "DE",
+    "country": "Germany",
+    "confirmed": "0",
+    "suspected": "0",
+    "deaths": "0",
+    "status": "German national died on board MV Hondius 2 May 2026 (confirmed Andes virus per WHO DON 600); death attributed to ship flag state (Netherlands) in WHO accounting.",
+    "source_url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON600"
+  }
+]
