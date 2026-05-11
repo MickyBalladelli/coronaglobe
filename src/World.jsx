@@ -14,45 +14,74 @@ const World = (props) => {
   useEffect(() => {
     if (globeEl && globeEl.current) {
       globeEl.current.pointOfView({ altitude: 8 }, 0)
-    }
-  }, [globeEl])
+     }
+   }, [])
 
-  useEffect(() => {
-    if (props.covid && globeEl && globeEl.current) {
-      globeEl.current.controls().autoRotate = true
-      globeEl.current.controls().autoRotateSpeed = -0.2
-
-      globeEl.current.pointOfView({ altitude: 8 }, 0)
-      window.addEventListener('resize', () => {
-        if (globeEl && globeEl.current) {
-          globeEl.current.camera().aspect = window.innerWidth / window.innerHeight
-          globeEl.current.camera().updateProjectionMatrix()
-          globeEl.current.renderer().setSize(window.innerWidth, window.innerHeight)
-           }
-         }, false)
+   // Handle window resize
+   useEffect(() => {
+     const handleResize = () => {
+       if (globeEl && globeEl.current) {
+         globeEl.current.camera().aspect = window.innerWidth / window.innerHeight
+         globeEl.current.camera().updateProjectionMatrix()
+         globeEl.current.renderer().setSize(window.innerWidth, window.innerHeight)
        }
-     }, [props.covid])
+     }
+     window.addEventListener('resize', handleResize, false)
+     return () => window.removeEventListener('resize', handleResize, false)
+   }, [])
 
-  function onClick(element) {
-    setGlobalState({selected: element})
+   let autoRotateTimer = null
+
+   function onGlobeReady(globeInstance) {
+     // Enable auto-rotation
+     globeInstance.controls().autoRotate = true
+     globeInstance.controls().autoRotateSpeed = -0.2
+     
+     // Disable auto-rotation on user interaction, re-enable after 3 seconds of idle
+     const controls = globeInstance.controls()
+     
+     const resetAutoRotate = () => {
+       clearTimeout(autoRotateTimer)
+       autoRotateTimer = setTimeout(() => {
+         controls.autoRotate = true
+       }, 3000)
      }
-  function onHover(element) {
+     
+     const disableAutoRotate = () => {
+       controls.autoRotate = false
+       resetAutoRotate()
+     }
+     
+     // Listen for control events to disable auto-rotate during interaction
+     controls.addEventListener('start', () => {
+       controls.autoRotate = false
+     })
+     
+     controls.addEventListener('end', () => {
+       resetAutoRotate()
+     })
+   }
+
+   function onClick(element) {
+     setGlobalState({selected: element})
+   }
+   function onHover(element) {
      /*if (element) {
-      setGlobalState({selected: element})
+     setGlobalState({selected: element})
       }*/
-     }
+   }
 
   return (
      <GlobeWrapper> 
-       {props.covid && props.cites && props.width !== 0 && props.height !== 0 &&
-         <Globe          
+        {props.covid && props.cites && props.width !== 0 && props.height !== 0 &&
+          <Globe          
           height={props.height}
           width={props.width}
           ref={globeEl}
           globeImageUrl="/earth-night.jpg"
           bumpImageUrl="/earth-topology.png"
           backgroundImageUrl="/night-sky.png"
-
+          
           polygonsData={props.covid}
           polygonAltitude={d => d[props.filterBy] ? d[props.filterBy].altitude : 0.01}
           polygonCapColor={d => d[props.filterBy] ? d[props.filterBy].color : 'rgba(0, 100, 0, 0.15)'}
@@ -61,10 +90,11 @@ const World = (props) => {
           polygonsTransitionDuration={1000}
           onPolygonClick={onClick}
           onPolygonHover={onHover}
+          onGlobeReady={onGlobeReady}
           pointOfView={{altitude: 8, ms: 0}}
-
-         />
-       }
+          
+          />
+        }
      </GlobeWrapper>
     )
 }
