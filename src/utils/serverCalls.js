@@ -31,7 +31,7 @@ export function getCovidData(callback) {
 
 export function getHantaData(callback) {
   Promise.all([
-fetch('https://hantavirus.one/data/countries.json')
+fetch('http://localhost:5175/api/countries')
     .then(res => res.json())
     .then(d => d),
 fetch('/datasets/countries.geojson')

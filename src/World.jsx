@@ -33,6 +33,7 @@ const World = (props) => {
    let autoRotateTimer = null
 
    function onGlobeReady(globeInstance) {
+     if (!globeInstance) return
      const controls = globeInstance.controls()
      
      if (controls) {
