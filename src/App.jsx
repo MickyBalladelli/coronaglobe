@@ -55,9 +55,13 @@ const GridContainer = styled(Grid)({
 })
 
 const GlobeContainer = styled('div')({
-  height: '850px',
+  position: 'fixed',
+  top: 70,
+  left: 0,
+  right: 0,
+  bottom: 0,
   width: '100%',
-  maxHeight: 'fill-available'
+  zIndex: 1000
 })
 
 const ChartsContainer = styled('div')({

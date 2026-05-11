@@ -33,12 +33,12 @@ const World = (props) => {
    let autoRotateTimer = null
 
    function onGlobeReady(globeInstance) {
-     // Enable auto-rotation
-     globeInstance.controls().autoRotate = true
-     globeInstance.controls().autoRotateSpeed = -0.2
-     
-     // Disable auto-rotation on user interaction, re-enable after 3 seconds of idle
      const controls = globeInstance.controls()
+     
+     if (controls) {
+       controls.autoRotate = true
+       controls.autoRotateSpeed = -0.2
+     }
      
      const resetAutoRotate = () => {
        clearTimeout(autoRotateTimer)
