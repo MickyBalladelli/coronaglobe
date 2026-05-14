@@ -30,23 +30,33 @@ export function getCovidData(callback) {
 }
 
 export function getHantaData(callback) {
-  Promise.all([
-fetch('/api/countries')
+  // Use the local dataset instead of external API to avoid the HTML error
+  fetch('/datasets/hanta.json')
     .then(res => res.json())
-    .then(d => {
-      console.log("Hanta data loaded", d)
-      return d
-    }),
-//fetch('/datasets/countries.geojson')
-  //       .then(res => res.json())
-    //     .then(d => d),
-      //fetch('/datasets/hanta-time-series.json')
-      //     .then(res => res.json())
-      //     .then(d => d)
-     ]).then(([hantaData, countryGeoData, dataOverTime]) => {
-    const combinedData = parseHantaData(hantaData, countryGeoData)
-    callback(combinedData, dataOverTime)
-     })
+    .then(hantaData => {
+      console.log("Hanta data loaded", hantaData)
+      // Load country geo data for mapping
+      fetch('/datasets/countries.geojson')
+        .then(res => res.json())
+        .then(countryGeoData => {
+          const combinedData = parseHantaData(hantaData, countryGeoData)
+          callback(combinedData, []) // No time series data for hanta
+        })
+    })
+    .catch(error => {
+      console.error('Error loading Hanta data:', error)
+      // Fallback to using local data if external API fails
+      fetch('/datasets/hanta.json')
+        .then(res => res.json())
+        .then(hantaData => {
+          fetch('/datasets/countries.geojson')
+            .then(res => res.json())
+            .then(countryGeoData => {
+              const combinedData = parseHantaData(hantaData, countryGeoData)
+              callback(combinedData, [])
+            })
+        })
+    })
 }
 
 function computeMinMax(data, filterBy) {

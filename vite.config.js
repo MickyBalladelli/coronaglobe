@@ -7,8 +7,8 @@ export default defineConfig({
   plugins: [
     react(),
     svgr()
-     ],
+  ],
   server: {
     open: true
-     }
+  }
 })
