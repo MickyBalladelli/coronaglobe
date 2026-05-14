@@ -27,9 +27,7 @@
     "dev": "vite",
     "start": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "server": "node public/server.js",
-    "dev:full": "concurrently \"npm run server\" \"npm run dev\""
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",

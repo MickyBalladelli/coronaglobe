@@ -37,7 +37,9 @@ If you want to generate a production build:
 
 ### `npm run build`
 
-Builds the app in the `build` folder.\
+Builds the app in the `build` folder.
 Once the project has built you can start it by executing
 
-### `node build/server.js`
+### `npm run build`
+
+Note: The application now uses Vercel Serverless Functions for API endpoints, so there's no need to run a separate server.
