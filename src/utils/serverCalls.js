@@ -30,11 +30,11 @@ export function getCovidData(callback) {
 }
 
 export function getHantaData(callback) {
-  // Fetch hantavirus data from Vercel API route (avoiding CORS issues)
-  fetch('/api/hanta')
+  // Try to fetch from local data first (most reliable)
+  fetch('/datasets/hanta.json')
     .then(res => res.json())
     .then(hantaData => {
-      console.log("Hanta data loaded", hantaData)
+      console.log("Local hanta data loaded", hantaData)
       // Load country geo data for mapping
       fetch('/datasets/countries.geojson')
         .then(res => res.json())
@@ -44,16 +44,39 @@ export function getHantaData(callback) {
         })
     })
     .catch(error => {
-      console.error('Error loading Hanta data:', error)
-      // Fallback to using local data if external API fails
-      fetch('/datasets/hanta.json')
-        .then(res => res.json())
+      console.error('Error loading local Hanta data:', error)
+      console.log('Falling back to direct fetch from hantavirus.one')
+      // If local data fails, try direct fetch from hantavirus.one (may have CORS in dev but works in prod)
+      fetch('https://hantavirus.one/data/countries.json')
+        .then(res => {
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          return res.json();
+        })
         .then(hantaData => {
+          console.log("Remote hanta data loaded", hantaData)
+          // Load country geo data for mapping
           fetch('/datasets/countries.geojson')
             .then(res => res.json())
             .then(countryGeoData => {
               const combinedData = parseHantaData(hantaData, countryGeoData)
-              callback(combinedData, [])
+              callback(combinedData, []) // No time series data for hanta
+            })
+        })
+        .catch(error => {
+          console.error('Error loading remote Hanta data:', error)
+          console.log('Final fallback to local hanta data')
+          // Final fallback to using local data if external API fails
+          fetch('/datasets/hanta.json')
+            .then(res => res.json())
+            .then(hantaData => {
+              fetch('/datasets/countries.geojson')
+                .then(res => res.json())
+                .then(countryGeoData => {
+                  const combinedData = parseHantaData(hantaData, countryGeoData)
+                  callback(combinedData, [])
+                })
             })
         })
     })

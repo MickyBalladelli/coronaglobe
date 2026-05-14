@@ -16,18 +16,36 @@ module.exports = async function handler(req, res) {
   
   try {
     console.log("Fetching hantavirus data from https://hantavirus.one/data/countries.json...");
-    const response = await axios.get('https://hantavirus.one/data/countries.json');
-    const data = response.data;
-    console.log("Fetched hantavirus data:", data.length, "countries");
     
-    res.status(200).json(data);
+    // Make sure we're getting a proper JSON response
+    const response = await axios.get('https://hantavirus.one/data/countries.json', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      timeout: 10000 // 10 second timeout
+    });
+    
+    // Validate response
+    if (!response.data || typeof response.data !== 'object') {
+      throw new Error('Invalid data received from hantavirus.one - not a valid JSON object');
+    }
+    
+    const data = response.data;
+    console.log("Fetched hantavirus data:", Array.isArray(data) ? data.length : 'unknown', "items");
+    
+    // Ensure we're sending proper JSON
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).send(JSON.stringify(data));
   } catch (error) {
     console.error('Error fetching hantavirus data:', error.message);
     console.error('Error stack:', error.stack);
     
+    // Return a more specific error message
     res.status(500).json({
       error: 'Failed to fetch hantavirus data',
-      message: error.message
+      message: error.message,
+      url: 'https://hantavirus.one/data/countries.json'
     });
   }
 }
