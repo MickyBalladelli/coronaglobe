@@ -10,6 +10,7 @@ app.get('/api/countries', async (req, res) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
+    console.log("Fetched countries data:", data);
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch countries data' });

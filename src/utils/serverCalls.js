@@ -31,15 +31,18 @@ export function getCovidData(callback) {
 
 export function getHantaData(callback) {
   Promise.all([
-fetch('http://localhost:5175/api/countries')
+fetch('/api/countries')
     .then(res => res.json())
-    .then(d => d),
-fetch('/datasets/countries.geojson')
-         .then(res => res.json())
-         .then(d => d),
-      fetch('/datasets/hanta-time-series.json')
-           .then(res => res.json())
-           .then(d => d)
+    .then(d => {
+      console.log("Hanta data loaded", d)
+      return d
+    }),
+//fetch('/datasets/countries.geojson')
+  //       .then(res => res.json())
+    //     .then(d => d),
+      //fetch('/datasets/hanta-time-series.json')
+      //     .then(res => res.json())
+      //     .then(d => d)
      ]).then(([hantaData, countryGeoData, dataOverTime]) => {
     const combinedData = parseHantaData(hantaData, countryGeoData)
     callback(combinedData, dataOverTime)

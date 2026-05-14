@@ -64,7 +64,8 @@ const GlobeContainer = styled('div')({
 })
 
 const ChartsContainer = styled('div')({
-  backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  backgroundColor: 'transparent',
+  pointerEvents: 'none',
   position: 'absolute',
   width: 700,
   top: 80,
@@ -76,7 +77,8 @@ const ChartsContainer = styled('div')({
 })
 
 const DetailsContainer = styled('div')({
-  backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  backgroundColor: 'transparent',
+  pointerEvents: 'none',
   position: 'absolute',
   width: 500,
   top: 80,
