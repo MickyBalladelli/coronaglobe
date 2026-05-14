@@ -19,27 +19,11 @@ app.get('/api/countries', async (req, res) => {
   } catch (error) {
     console.error('Error fetching countries data:', error.message);
     console.error('Error stack:', error.stack);
-    // Return fallback data instead of error
-    res.status(200).json([
-      {
-        "iso": "NL",
-        "country": "Netherlands",
-        "confirmed": "3",
-        "suspected": "0",
-        "deaths": "2",
-        "status": "3 confirmed (NICD via WHO): 2 evacuated survivors + 1 on-board confirmed death (2 May). 2 on-board deaths attributed to NL as flag state — 1 confirmed, 1 probable index (11 Apr).",
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601"
-      },
-      {
-        "iso": "ZA",
-        "country": "South Africa",
-        "confirmed": "2",
-        "suspected": "0",
-        "deaths": "1",
-        "status": "2 confirmed at NICD: 1 death Johannesburg (26 Apr), 1 survivor in ICU. 97 contacts traced (91 located); no local transmission (Mohale via Health-e, 12 May).",
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601"
-      }
-    ]);
+    // Return proper error response instead of fallback data
+    res.status(500).json({
+      error: 'Failed to fetch countries data',
+      message: error.message
+    });
   }
 });
 
