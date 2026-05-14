@@ -30,8 +30,8 @@ export function getCovidData(callback) {
 }
 
 export function getHantaData(callback) {
-  // Use the local dataset instead of external API to avoid the HTML error
-  fetch('/datasets/hanta.json')
+  // Fetch hantavirus data from Vercel API route (avoiding CORS issues)
+  fetch('/api/hanta')
     .then(res => res.json())
     .then(hantaData => {
       console.log("Hanta data loaded", hantaData)
@@ -163,13 +163,32 @@ function pushFilteredData(o, item, covidData, filterBy) {
 function parseHantaData(hantaData, countryGeoData) {
   const combinedData = []
 
-   // Compute min/max for normalization
-  const [maxCases, minCases] = computeMinMax(hantaData, 'total_cases')
-  const [maxDeaths, minDeaths] = computeMinMax(hantaData, 'total_deaths')
-  const [maxCFR, minCFR] = computeMinMax(hantaData, 'cfr')
-  const [maxPerMillion, minPerMillion] = computeMinMax(hantaData, 'cases_per_million')
+  // Convert remote data structure to local structure for consistency
+  const convertedData = hantaData.map(item => {
+    // Convert remote data structure to match local file structure
+    return {
+      country: item.country,
+      iso: item.iso,
+      lat: item.lat || 0,
+      lng: item.lng || 0,
+      total_cases: parseInt(item.confirmed) || 0,
+      total_deaths: parseInt(item.deaths) || 0,
+      cfr: 0, // No CFR in remote data
+      cases_per_million: 0, // No cases per million in remote data
+      endemic_since: 0, // No endemic since in remote data
+      primary_virus: "", // No virus info in remote data
+      rodent_reservoir: "", // No reservoir info in remote data
+      last_updated: new Date().toISOString().split('T')[0], // Current date
+    };
+  });
 
-  hantaData.forEach(function(item) {
+  // Compute min/max for normalization
+  const [maxCases, minCases] = computeMinMax(convertedData, 'total_cases')
+  const [maxDeaths, minDeaths] = computeMinMax(convertedData, 'total_deaths')
+  const [maxCFR, minCFR] = computeMinMax(convertedData, 'cfr')
+  const [maxPerMillion, minPerMillion] = computeMinMax(convertedData, 'cases_per_million')
+
+  convertedData.forEach(function(item) {
     let geo = {}
     for (let i = 0; i < countryGeoData.features.length; i++) {
        // Match by country name or ISO code
