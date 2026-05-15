@@ -43,3 +43,5 @@ Once the project has built you can start it by executing
 ### `npm run build`
 
 Note: The application now uses Vercel Serverless Functions for API endpoints, so there's no need to run a separate server.
+
+### `npx vercel dev`
