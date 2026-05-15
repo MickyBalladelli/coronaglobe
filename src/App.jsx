@@ -68,12 +68,12 @@ const ChartsContainer = styled('div')({
   pointerEvents: 'none',
   position: 'absolute',
   width: 700,
-  top: 80,
-  right: 20,
+  top: 0,
+  right: 10,
   zIndex: 8000,
   padding: 20,
-  borderRadius: 8,
-  border: '1px solid rgba(255, 255, 255, 0.1)'
+  //borderRadius: 8,
+  //border: '1px solid rgba(255, 255, 255, 0.1)'
 })
 
 const DetailsContainer = styled('div')({
@@ -85,8 +85,8 @@ const DetailsContainer = styled('div')({
   left: 20,
   zIndex: 8000,
   padding: 20,
-  borderRadius: 8,
-  border: '1px solid rgba(255, 255, 255, 0.1)'
+  //borderRadius: 8,
+  //border: '1px solid rgba(255, 255, 255, 0.1)'
 })
 
 const CircularContainer = styled('div')({
