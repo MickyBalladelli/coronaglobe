@@ -52,25 +52,7 @@ export function getHantaData(callback) {
     .then(hantaData => {
       // Validate that the data is valid JSON and is an array
       if (!Array.isArray(hantaData)) {
-        console.error('Invalid data received from API - expected an array, got:', typeof hantaData);
-        // Try to check if hantaData is an object with array property
-        if (typeof hantaData === 'object' && hantaData !== null) {
-          // Look for an array property that might contain the data
-          let dataArray = null;
-          for (const key in hantaData) {
-            if (Array.isArray(hantaData[key])) {
-              dataArray = hantaData[key];
-              break;
-            }
-          }
-          if (dataArray) {
-            hantaData = dataArray;
-          } else {
-            throw new Error('Invalid data received from API - expected an array');
-          }
-        } else {
-          throw new Error('Invalid data received from API - expected an array');
-        }
+        console.error('Invalid data received from API - expected an array, got:', typeof hantaData);        
       }
       // Additional validation: ensure the data is actually valid JSON
       try {
@@ -86,37 +68,16 @@ export function getHantaData(callback) {
         .then(res => res.json())
         .then(countryGeoData => {
           const combinedData = parseHantaData(hantaData, countryGeoData)
-          callback(combinedData, []) // No time series data for hanta
+          callback(combinedData) // No time series data for hanta
         })
         .catch(error => {
-          console.error('Error loading country geo data for Hanta:', error);
-          callback([], []);
+          console.error('Error loading country geo data for Hanta:', error)
+          callback([])
         })
     })
     .catch(error => {
       console.error('Error loading Hanta data via API route:', error);
-      // If API fails, try to load local data as fallback
-      fetch('/hanta-virus-data.json')
-        .then(res => res.json())
-        .then(localHantaData => {
-          console.log("Hanta data loaded from local file", localHantaData)
-          // Load country geo data for mapping
-          fetch('/datasets/countries.geojson')
-            .then(res => res.json())
-            .then(countryGeoData => {
-              const combinedData = parseHantaData(localHantaData, countryGeoData)
-              callback(combinedData, []) // No time series data for hanta
-            })
-            .catch(error => {
-              console.error('Error loading country geo data for Hanta (local):', error);
-              callback([], []);
-            })
-        })
-        .catch(error => {
-          console.error('Error loading local Hanta data:', error);
-          // If both API and local data fail, provide empty data
-          callback([], []);
-        })
+      callback([])
     })
 }
 
@@ -186,8 +147,8 @@ function parseCovidData(covidData, countryData, countryGeoData) {
 
       let o = {
         country:    c.country,
-        lat:        c.lat,
-        lng:        c.lng,
+        //lat:        c.lat,
+        //lng:        c.lng,
         geometry:   geo.geometry,
         bbox:       geo.bbox,
         properties: geo.properties,
@@ -225,35 +186,16 @@ function parseHantaData(hantaData, countryGeoData) {
   const combinedData = []
 
   // Check if hantaData is an array, if not try to extract the array
-  let dataToProcess = hantaData;
-  if (!Array.isArray(hantaData)) {
-    // If it's not an array, check if it's an object with an array property
-    if (typeof hantaData === 'object' && hantaData !== null) {
-      // Try to find an array property (common in API responses)
-      for (const key in hantaData) {
-        if (Array.isArray(hantaData[key])) {
-          dataToProcess = hantaData[key];
-          break;
-        }
-      }
-    }
-  }
-
+  
   // Convert remote data structure to local structure for consistency
-  const convertedData = dataToProcess.map(item => {
+  const convertedData = hantaData.map(item => {
     // Convert remote data structure to match local file structure
     return {
-      country: item.country,
-      iso: item.iso,
+      ...item,
       lat: item.lat || 0,
       lng: item.lng || 0,
       total_cases: parseInt(item.confirmed) || 0,
-      total_deaths: parseInt(item.deaths) || 0,
-      cfr: 0, // No CFR in remote data
-      cases_per_million: 0, // No cases per million in remote data
-      endemic_since: 0, // No endemic since in remote data
-      primary_virus: "", // No virus info in remote data
-      rodent_reservoir: "", // No reservoir info in remote data
+      total_deaths: parseInt(item.deaths) || 0,      
       last_updated: new Date().toISOString().split('T')[0], // Current date
     };
   });
@@ -272,36 +214,25 @@ function parseHantaData(hantaData, countryGeoData) {
       if (prop.NAME_CIAWF === item.country || prop.ISO_A2 === item.iso || prop.ADM0_A3 === item.iso) {
         geo = countryGeoData.features[i]
         break
-         }
-        }
-
+      }
+    }
+console.log('item for', item.country, item)
     if (geo.properties !== undefined) {
       let o = {
+        confirmed:  item.confirmed,
+        deaths:     item.deaths,
         country:    item.country,
-        lat:        item.lat,
-        lng:        item.lng,
+        iso:        item.iso,
         geometry:   geo.geometry,
         bbox:       geo.bbox,
         properties: geo.properties,
         date:       item.last_updated,
-        total_cases:      normalizeValue(item.total_cases, minCases, maxCases),
-        total_deaths:     normalizeValue(item.total_deaths, minDeaths, maxDeaths),
-        cfr:              normalizeValue(item.cfr, minCFR, maxCFR),
-        cases_per_million: normalizeValue(item.cases_per_million, minPerMillion, maxPerMillion),
-         // Store raw values for display
-        raw_total_cases:      item.total_cases,
-        raw_total_deaths:     item.total_deaths,
-        raw_cfr:              item.cfr,
-        raw_cases_per_million: item.cases_per_million,
-        endemic_since:    item.endemic_since,
-        primary_virus:    item.primary_virus,
-        rodent_reservoir: item.rodent_reservoir
-         }
+      }
 
       combinedData.push(o)
-        }
-      })
-
+    }
+  })
+  console.log("Combined Hanta data", combinedData)
   return combinedData
 }
 

@@ -128,23 +128,22 @@ function App() {
       setGlobalState({
         filterBy: 'new_cases',
         selected: null,
-          })
+      })
       getCovidData((d, dot) => {
         setDiseaseData(d)
         setDataOverTime(dot)
-          })
-       } else {
+      })
+    } else {
       setGlobalState({
-        filterBy: 'total_cases',
+        filterBy: 'confirmed',
         selected: null,
-          })
-      getHantaData((d, dot) => {
+      })
+      getHantaData((d) => {
         setDiseaseData(d)
-        setDataOverTime(dot)
-          })
-        }
+      })
+    }
     getCityData((d) => setCities(d))
-     }
+  }
 
   useEffect(() => {
     loadDiseaseData(disease)
@@ -155,14 +154,14 @@ function App() {
     const element = diseaseData.filter(i => i.country === selectCountry)
     if (element) {
       setGlobalState({selected: element[0]})
-         }
-     }, [diseaseData, setGlobalState])
+    }
+  }, [diseaseData, setGlobalState])
 
   const handleDiseaseChange = (event, newDisease) => {
     if (newDisease !== null) {
       setDisease(newDisease)
-         }
-       }
+    }
+  }
 
   return (
         <ThemeProvider theme={theme}>
