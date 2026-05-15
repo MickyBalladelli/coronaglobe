@@ -15,7 +15,9 @@ module.exports = async function handler(req, res) {
   
   try {
     console.log("Fetching countries data from https://hantavirus.one/data/countries.json...");
-    const response = await axios.get('https://hantavirus.one/data/countries.json');
+    const response = await axios.get('https://hantavirus.one/data/countries.json', {
+      timeout: 10000 // 10 second timeout
+    });
     const data = response.data;
     console.log("Fetched countries data:", data.length, "countries");
     

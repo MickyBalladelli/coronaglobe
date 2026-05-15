@@ -30,11 +30,63 @@ export function getCovidData(callback) {
 }
 
 export function getHantaData(callback) {
-  // Try to fetch from local data first (most reliable)
-  fetch('/datasets/hanta.json')
-    .then(res => res.json())
+  // Fetch only from Vercel API route (avoids CORS issues)
+  fetch('/api/hanta')
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      // Check if response is actually JSON by trying to parse it
+      return res.text().then(text => {
+        // First check if the response looks like JavaScript code (function)
+        console.log("Raw response from Hanta API route:", text)
+        if (text.includes('function') && text.includes('module.exports')) {
+          console.error('Received JavaScript code instead of JSON data from API');
+          throw new Error('Received JavaScript code instead of JSON data');
+        }
+        
+        // Try to parse as JSON
+        try {
+          const jsonData = JSON.parse(text);
+          return jsonData;
+        } catch (e) {
+          console.error('Failed to parse JSON from API:', e);
+          throw new Error('Invalid JSON received from API');
+        }
+      });
+    })
     .then(hantaData => {
-      console.log("Local hanta data loaded", hantaData)
+      // Validate that the data is valid JSON and is an array
+      if (!Array.isArray(hantaData)) {
+        console.error('Invalid data received from API - expected an array, got:', typeof hantaData);
+        // Try to check if hantaData is an object with array property
+        if (typeof hantaData === 'object' && hantaData !== null) {
+          // Look for an array property that might contain the data
+          let dataArray = null;
+          for (const key in hantaData) {
+            if (Array.isArray(hantaData[key])) {
+              dataArray = hantaData[key];
+              break;
+            }
+          }
+          if (dataArray) {
+            hantaData = dataArray;
+          } else {
+            throw new Error('Invalid data received from API - expected an array');
+          }
+        } else {
+          throw new Error('Invalid data received from API - expected an array');
+        }
+      }
+      // Additional validation: ensure the data is actually valid JSON
+      try {
+        // This will throw if data is not valid JSON
+        JSON.stringify(hantaData);
+      } catch (e) {
+        console.error('Data is not valid JSON:', e);
+        throw new Error('Data is not valid JSON');
+      }
+      console.log("Hanta data loaded via API route", hantaData)
       // Load country geo data for mapping
       fetch('/datasets/countries.geojson')
         .then(res => res.json())
@@ -42,42 +94,34 @@ export function getHantaData(callback) {
           const combinedData = parseHantaData(hantaData, countryGeoData)
           callback(combinedData, []) // No time series data for hanta
         })
+        .catch(error => {
+          console.error('Error loading country geo data for Hanta:', error);
+          callback([], []);
+        })
     })
     .catch(error => {
-      console.error('Error loading local Hanta data:', error)
-      console.log('Falling back to direct fetch from hantavirus.one')
-      // If local data fails, try direct fetch from hantavirus.one (may have CORS in dev but works in prod)
-      fetch('https://hantavirus.one/data/countries.json')
-        .then(res => {
-          if (!res.ok) {
-            throw new Error(`HTTP error! status: ${res.status}`);
-          }
-          return res.json();
-        })
-        .then(hantaData => {
-          console.log("Remote hanta data loaded", hantaData)
+      console.error('Error loading Hanta data via API route:', error);
+      // If API fails, try to load local data as fallback
+      fetch('/hanta-virus-data.json')
+        .then(res => res.json())
+        .then(localHantaData => {
+          console.log("Hanta data loaded from local file", localHantaData)
           // Load country geo data for mapping
           fetch('/datasets/countries.geojson')
             .then(res => res.json())
             .then(countryGeoData => {
-              const combinedData = parseHantaData(hantaData, countryGeoData)
+              const combinedData = parseHantaData(localHantaData, countryGeoData)
               callback(combinedData, []) // No time series data for hanta
+            })
+            .catch(error => {
+              console.error('Error loading country geo data for Hanta (local):', error);
+              callback([], []);
             })
         })
         .catch(error => {
-          console.error('Error loading remote Hanta data:', error)
-          console.log('Final fallback to local hanta data')
-          // Final fallback to using local data if external API fails
-          fetch('/datasets/hanta.json')
-            .then(res => res.json())
-            .then(hantaData => {
-              fetch('/datasets/countries.geojson')
-                .then(res => res.json())
-                .then(countryGeoData => {
-                  const combinedData = parseHantaData(hantaData, countryGeoData)
-                  callback(combinedData, [])
-                })
-            })
+          console.error('Error loading local Hanta data:', error);
+          // If both API and local data fail, provide empty data
+          callback([], []);
         })
     })
 }
@@ -186,8 +230,23 @@ function pushFilteredData(o, item, covidData, filterBy) {
 function parseHantaData(hantaData, countryGeoData) {
   const combinedData = []
 
+  // Check if hantaData is an array, if not try to extract the array
+  let dataToProcess = hantaData;
+  if (!Array.isArray(hantaData)) {
+    // If it's not an array, check if it's an object with an array property
+    if (typeof hantaData === 'object' && hantaData !== null) {
+      // Try to find an array property (common in API responses)
+      for (const key in hantaData) {
+        if (Array.isArray(hantaData[key])) {
+          dataToProcess = hantaData[key];
+          break;
+        }
+      }
+    }
+  }
+
   // Convert remote data structure to local structure for consistency
-  const convertedData = hantaData.map(item => {
+  const convertedData = dataToProcess.map(item => {
     // Convert remote data structure to match local file structure
     return {
       country: item.country,
