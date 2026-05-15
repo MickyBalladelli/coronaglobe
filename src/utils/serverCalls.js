@@ -38,12 +38,6 @@ export function getHantaData(callback) {
       }
       // Check if response is actually JSON by trying to parse it
       return res.text().then(text => {
-        // First check if the response looks like JavaScript code (function)
-        console.log("Raw response from Hanta API route:", text)
-        if (text.includes('function') && text.includes('module.exports')) {
-          console.error('Received JavaScript code instead of JSON data from API');
-          throw new Error('Received JavaScript code instead of JSON data');
-        }
         
         // Try to parse as JSON
         try {

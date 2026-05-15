@@ -201,16 +201,18 @@ function App() {
             <GlobeContainer ref={globe} id="globe" >
               <World filterBy={globalState.filterBy} covid={diseaseData} cites={cities} height={window.innerHeight} width={window.innerWidth} disease={disease} />
             </GlobeContainer>
-            <ChartsContainer>
-              <Grid container spacing={3} direction="column">
-                <Grid item xs={6}>
-                  <Filter disease={disease} />
+            {disease === 'covid' &&
+              <ChartsContainer>
+                <Grid container spacing={3} direction="column">
+                  <Grid item xs={6}>
+                    <Filter disease={disease} />
+                  </Grid>
+                  <Grid item xs={11}>
+                    <Charts data={dataOverTime} filterBy={globalState.filterBy} disease={disease} />
+                  </Grid>
                 </Grid>
-                <Grid item xs={11}>
-                  <Charts data={dataOverTime} filterBy={globalState.filterBy} disease={disease} />
-                </Grid>
-              </Grid>
-            </ChartsContainer>
+              </ChartsContainer>
+            }           
             <DetailsContainer>
               <Details disease={disease} />
             </DetailsContainer>
