@@ -1,6 +1,6 @@
 # Corona Globe
 
-## [Online demo](https://coronaglobe-20kk.onrender.com/)
+## [Online demo](https://virusglobe.vercel.app)
 
 ![Corona Globe](/project-images/polygons.png)
 Corona Globe, a global view of Covid pandemia using Javascript and React.
