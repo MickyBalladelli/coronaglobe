@@ -2,7 +2,6 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import LinearProgress from '@mui/material/LinearProgress';
 
 const ProgressContainer = styled(Box)({
   position: 'fixed',
@@ -21,11 +20,11 @@ const ProgressContainer = styled(Box)({
 const Progress = ({ progress = 0 }) => {
   return (
     <ProgressContainer>
-      <CircularProgress size={80} thickness={4} style={{ color: '#fff', marginBottom: '20px' }} />
-      <LinearProgress 
-        variant="determinate" 
-        value={progress} 
-        style={{ width: '300px', height: '8px', borderRadius: '4px' }} 
+      <CircularProgress 
+        size={80} 
+        thickness={4} 
+        style={{ color: '#fff', marginBottom: '20px' }} 
+        value={progress}
       />
     </ProgressContainer>
   );
