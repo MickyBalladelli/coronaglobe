@@ -216,7 +216,7 @@ function parseHantaData(hantaData, countryGeoData) {
         break
       }
     }
-console.log('item for', item.country, item)
+
     if (geo.properties !== undefined) {
       let o = {
         confirmed:  item.confirmed,
