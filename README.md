@@ -1,8 +1,8 @@
-# Corona Globe
+# Virus Globe
 
 ## [Online demo](https://virusglobe.vercel.app)
 
-![Corona Globe](/project-images/polygons.png)
+![Virus Globe](/demo.png)
 Corona Globe, a global view of Covid pandemia using Javascript and React.
 
 Corona Globe is a React based Web application leveraging Vasco Asturiano globe.gl components [https://github.com/vasturiano/react-globe.gl](https://github.com/vasturiano/react-globe.gl) and COVID-19 Dataset by Our World in Data [https://github.com/owid/covid-19-data](https://github.com/owid/covid-19-data).
@@ -19,9 +19,6 @@ Data can be filtered by:
 Note: Data by Our World in Data is updated daily.
 
 When clicking on a country a detailed view appears
-
-![Detailed view](/project-images/detailedview.png)
-## [Online demo](https://coronaglobe-20kk.onrender.com/
 
 ## Getting started
 
