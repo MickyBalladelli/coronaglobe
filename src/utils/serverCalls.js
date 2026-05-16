@@ -223,6 +223,8 @@ function parseHantaData(hantaData, countryGeoData) {
         deaths:     item.deaths,
         country:    item.country,
         iso:        item.iso,
+        status:     item.status,
+        source_url: item.source_url,
         geometry:   geo.geometry,
         bbox:       geo.bbox,
         properties: geo.properties,
