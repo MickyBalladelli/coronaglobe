@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 import { styled } from '@mui/material/styles'
 import Globe from 'react-globe.gl'
 import useCustom from './CustomHooks'
-import * as d3 from 'd3'
 
 const GlobeWrapper = styled('div')({
   position: 'relative !important',
@@ -91,10 +90,20 @@ const World = (props) => {
       // For hantavirus data, we want to color based on confirmed cases
       if (d.confirmed && d.deaths) {
         const confirmed = parseInt(d.confirmed) || 0;
-        // Simple color scale based on confirmed cases
+        // Simple color scale based on confirmed cases (red to orange to yellow)
         const normalized = Math.min(1, confirmed / 10); // Normalize to make color differences visible
-        // Use a red color scale for hantavirus data
-        return d3.interpolateReds(normalized);
+        // Create a simple red to yellow color scale
+        if (normalized < 0.2) {
+          return '#ff0000'; // Red
+        } else if (normalized < 0.4) {
+          return '#ff3300'; // Darker red
+        } else if (normalized < 0.6) {
+          return '#ff6600'; // Orange
+        } else if (normalized < 0.8) {
+          return '#ff9900'; // Light orange
+        } else {
+          return '#ffcc00'; // Yellow
+        }
       }
       return 'rgba(0, 100, 0, 0.15)';
     }
@@ -104,6 +113,40 @@ const World = (props) => {
         return `${d.country}: Confirmed: ${d.confirmed}, Deaths: ${d.deaths}`;
       }
       return `${d.country}: no data`;
+    }
+    
+    // Simplified and corrected logic for handling both hanta and covid data
+    function getPolygonAltitude(d) {
+      if (props.disease === 'hanta') {
+        // Special handling for hantavirus data
+        return getHantaPolygonAltitude(d);
+      } else {
+        // For COVID data, use the existing logic
+        if (d[props.filterBy]) {
+          return d[props.filterBy].altitude;
+        }
+        return 0.01;
+      }
+    }
+    
+    function getPolygonCapColor(d) {
+      if (props.disease === 'hanta') {
+        // Special handling for hantavirus data
+        return getHantaPolygonCapColor(d);
+      } else {
+        // For COVID data, use the existing logic
+        return d[props.filterBy] ? d[props.filterBy].color : 'rgba(0, 100, 0, 0.15)';
+      }
+    }
+    
+    function getPolygonLabel(d) {
+      if (props.disease === 'hanta') {
+        // Special handling for hantavirus data
+        return getHantaPolygonLabel(d);
+      } else {
+        // For COVID data, use the existing logic
+        return d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value}` : `${d.country}: no value`;
+      }
     }
     
  console.log('Rendering World with props:', props)
@@ -119,60 +162,10 @@ const World = (props) => {
            backgroundImageUrl="/night-sky.png"
            
             polygonsData={props.data}
-             polygonAltitude={d => {
-               if (props.disease === 'hanta') {
-                 // Special handling for hantavirus data
-                 return getHantaPolygonAltitude(d);
-               } else {
-                 // For COVID data, use the existing logic
-                 if (d[props.filterBy]) {
-                   if (props.filterBy === 'total_cases') {
-                     // For hantavirus data, use raw total_cases value for better visualization
-                     if (typeof d[props.filterBy] === 'object' && d[props.filterBy] !== null && d[props.filterBy].altitude !== undefined) {
-                       // Already processed data with altitude - use it directly
-                       return Math.max(0.01, d[props.filterBy].altitude);
-                     } else {
-                       // Use the raw value from the hantavirus data for proper scaling
-                       const rawValue = d.raw_total_cases;
-                       // Apply a reasonable scaling factor to make differences visible
-                       const altitude = Math.max(0.01, rawValue * 0.00005); // Scale to make differences visible
-                       return altitude;
-                     }
-                   } else if (props.filterBy === 'total_deaths' || props.filterBy === 'cfr' || props.filterBy === 'cases_per_million') {
-                     // For other hantavirus fields, also use direct scaling
-                     if (typeof d[props.filterBy] === 'object' && d[props.filterBy] !== null && d[props.filterBy].altitude !== undefined) {
-                       return Math.max(0.01, d[props.filterBy].altitude);
-                     } else {
-                       // For hantavirus data, use raw values for better scaling
-                       return Math.max(0.01, d[props.filterBy]); // Use raw value directly
-                     }
-                   } else {
-                     // For other cases (COVID), use the existing altitude logic
-                     return d[props.filterBy].altitude;
-                   }
-                 }
-                 return 0.01;
-               }
-             }}
-            polygonCapColor={d => {
-              if (props.disease === 'hanta') {
-                // Special handling for hantavirus data
-                return getHantaPolygonCapColor(d);
-              } else {
-                // For COVID data, use the existing logic
-                return d[props.filterBy] ? d[props.filterBy].color : 'rgba(0, 100, 0, 0.15)';
-              }
-            }}
+             polygonAltitude={getPolygonAltitude}
+            polygonCapColor={getPolygonCapColor}
             polygonSideColor={() => 'rgba(0, 255, 255, 0.15)'}
-            polygonLabel={d => {
-              if (props.disease === 'hanta') {
-                // Special handling for hantavirus data
-                return getHantaPolygonLabel(d);
-              } else {
-                // For COVID data, use the existing logic
-                return d[props.filterBy] ? `${d.country}: ${d[props.filterBy].value}` : `${d.country}: no value`;
-              }
-            }}
+            polygonLabel={getPolygonLabel}
            polygonsTransitionDuration={1000}
            onPolygonClick={onClick}
            onPolygonHover={onHover}
