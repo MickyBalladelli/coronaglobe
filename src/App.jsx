@@ -177,7 +177,7 @@ function App() {
       setDisease(newDisease)
     }
   }
-console.log('Loading state:', loading)
+
   return (
         <ThemeProvider theme={theme}>
           <CssBaseline />
