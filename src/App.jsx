@@ -198,7 +198,7 @@ function App() {
               </CircularContainer>
             }
             <GlobeContainer ref={globe} id="globe" >
-              <World filterBy={globalState.filterBy} covid={diseaseData} cites={cities} height={window.innerHeight} width={window.innerWidth} disease={disease} />
+              <World filterBy={globalState.filterBy} data={diseaseData} cites={cities} height={window.innerHeight} width={window.innerWidth} disease={disease} />
             </GlobeContainer>
             {disease === 'covid' &&
               <ChartsContainer>

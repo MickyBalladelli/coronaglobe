@@ -74,7 +74,7 @@ const World = (props) => {
 
   return (
      <GlobeWrapper> 
-        {props.covid && props.cites && props.width !== 0 && props.height !== 0 &&
+        {props.data && props.cites && props.width !== 0 && props.height !== 0 &&
           <Globe          
           height={props.height}
           width={props.width}
@@ -83,7 +83,7 @@ const World = (props) => {
           bumpImageUrl="/earth-topology.png"
           backgroundImageUrl="/night-sky.png"
           
-           polygonsData={props.covid}
+           polygonsData={props.data}
             polygonAltitude={d => {
               if (d[props.filterBy]) {
                 // For hantavirus data, we want to use the actual values for proper scaling
