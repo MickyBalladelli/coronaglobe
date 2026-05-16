@@ -17,14 +17,14 @@ const ProgressContainer = styled(Box)({
   flexDirection: 'column',
 });
 
-const Progress = ({ progress = 0 }) => {
+const Progress = () => {
   return (
     <ProgressContainer>
       <CircularProgress 
         size={80} 
         thickness={4} 
         style={{ color: '#fff', marginBottom: '20px' }} 
-        value={progress}
+        variant="indeterminate"
       />
     </ProgressContainer>
   );

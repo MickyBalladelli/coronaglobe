@@ -149,7 +149,6 @@ const World = (props) => {
       }
     }
     
- console.log('Rendering World with props:', props)
    return (
       <GlobeWrapper> 
          {props.data && props.cites && props.width !== 0 && props.height !== 0 &&

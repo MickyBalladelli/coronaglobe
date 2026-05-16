@@ -123,12 +123,10 @@ function App() {
   const [disease, setDisease] = useState('covid')
   const [globalState, setGlobalState] = useCustom()
   const [loading, setLoading] = useState(true)
-  const [progress, setProgress] = useState(0)
   const globe = useRef(null)
 
   const loadDiseaseData = (diseaseType) => {
     setLoading(true)
-    setProgress(0)
     
     if (diseaseType === 'covid') {
       setGlobalState({
@@ -139,10 +137,7 @@ function App() {
         setDiseaseData(d)
         setDataOverTime(dot)
         // Only set loading to false when all data is loaded
-        setLoading(false)
-        setProgress(100)
-      }, (progressValue) => {
-        setProgress(progressValue)
+        setLoading(false)        
       })
     } else {
       setGlobalState({
@@ -153,9 +148,6 @@ function App() {
         setDiseaseData(d)
         // Only set loading to false when all data is loaded
         setLoading(false)
-        setProgress(100)
-      }, (progressValue) => {
-        setProgress(progressValue)
       })
     }
     getCityData((d) => {
@@ -167,15 +159,16 @@ function App() {
   }
 
   useEffect(() => {
+    setLoading(true)
     loadDiseaseData(disease)
-     }, [disease, setGlobalState])
+  }, [disease, setGlobalState])
 
   useEffect(() => {
     const selectCountry = 'France'
     const element = diseaseData.filter(i => i.country === selectCountry)
     if (element) {
       setGlobalState({selected: element[0]})
-      setLoading(false)
+      
     }
   }, [diseaseData, setGlobalState])
 
@@ -184,7 +177,7 @@ function App() {
       setDisease(newDisease)
     }
   }
-
+console.log('Loading state:', loading)
   return (
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -213,7 +206,7 @@ function App() {
           </HeaderBar>
           <GridContainer container sx={{ paddingTop: 70 }}>
             {loading && 
-              <Progress progress={progress} />
+              <Progress />
             }
             <GlobeContainer ref={globe} id="globe" >
               <World filterBy={globalState.filterBy} data={diseaseData} cites={cities} height={window.innerHeight} width={window.innerWidth} disease={disease} />
