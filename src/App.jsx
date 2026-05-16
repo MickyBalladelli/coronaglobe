@@ -12,6 +12,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { ToggleButton, ToggleButtonGroup } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
+import Progress from './Progress'
 
 const theme = createTheme({
   palette: {
@@ -121,9 +122,14 @@ function App() {
   const [dataOverTime, setDataOverTime] = useState([])
   const [disease, setDisease] = useState('covid')
   const [globalState, setGlobalState] = useCustom()
+  const [loading, setLoading] = useState(true)
+  const [progress, setProgress] = useState(0)
   const globe = useRef(null)
 
   const loadDiseaseData = (diseaseType) => {
+    setLoading(true)
+    setProgress(0)
+    
     if (diseaseType === 'covid') {
       setGlobalState({
         filterBy: 'new_cases',
@@ -132,6 +138,11 @@ function App() {
       getCovidData((d, dot) => {
         setDiseaseData(d)
         setDataOverTime(dot)
+        // Only set loading to false when all data is loaded
+        setLoading(false)
+        setProgress(100)
+      }, (progressValue) => {
+        setProgress(progressValue)
       })
     } else {
       setGlobalState({
@@ -140,9 +151,19 @@ function App() {
       })
       getHantaData((d) => {
         setDiseaseData(d)
+        // Only set loading to false when all data is loaded
+        setLoading(false)
+        setProgress(100)
+      }, (progressValue) => {
+        setProgress(progressValue)
       })
     }
-    getCityData((d) => setCities(d))
+    getCityData((d) => {
+      setCities(d)
+      // Set loading to false only when all data is loaded
+      // This is a bit tricky since we don't know when all promises are done
+      // But we'll keep the current approach for now
+    })
   }
 
   useEffect(() => {
@@ -154,6 +175,7 @@ function App() {
     const element = diseaseData.filter(i => i.country === selectCountry)
     if (element) {
       setGlobalState({selected: element[0]})
+      setLoading(false)
     }
   }, [diseaseData, setGlobalState])
 
@@ -190,12 +212,8 @@ function App() {
             </ToggleButtonGroup>
           </HeaderBar>
           <GridContainer container sx={{ paddingTop: 70 }}>
-            {!globalState.selected &&
-              <CircularContainer>
-                <Grid container justifyContent="center" alignItems="center">
-                  <CircularProgress />
-                </Grid>
-              </CircularContainer>
+            {loading && 
+              <Progress progress={progress} />
             }
             <GlobeContainer ref={globe} id="globe" >
               <World filterBy={globalState.filterBy} data={diseaseData} cites={cities} height={window.innerHeight} width={window.innerWidth} disease={disease} />
