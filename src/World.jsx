@@ -79,8 +79,8 @@ const World = (props) => {
         // When disease is hanta, we should use confirmed cases for altitude
         // The hanta data has confirmed and deaths fields directly
         const rawValue = parseInt(d.confirmed) || 0;
-        // Apply a reasonable scaling factor to make differences visible
-        const altitude = Math.max(0.01, rawValue * 0.00005); // Scale to make differences visible
+        // Apply a more pronounced scaling factor to make differences more visible
+        const altitude = Math.max(0.01, rawValue * 0.0005); // Increased scaling for better visibility
         return altitude;
       }
       return 0.01;
@@ -90,19 +90,19 @@ const World = (props) => {
       // For hantavirus data, we want to color based on confirmed cases
       if (d.confirmed && d.deaths) {
         const confirmed = parseInt(d.confirmed) || 0;
-        // Simple color scale based on confirmed cases (red to orange to yellow)
-        const normalized = Math.min(1, confirmed / 10); // Normalize to make color differences visible
-        // Create a simple red to yellow color scale
-        if (normalized < 0.2) {
-          return '#ff0000'; // Red
-        } else if (normalized < 0.4) {
-          return '#ff3300'; // Darker red
-        } else if (normalized < 0.6) {
-          return '#ff6600'; // Orange
-        } else if (normalized < 0.8) {
-          return '#ff9900'; // Light orange
+        // Create a more pronounced color scale based on confirmed cases (red to orange to yellow)
+        if (confirmed >= 1000) {
+          return '#ff0000'; // Deep red for high cases
+        } else if (confirmed >= 500) {
+          return '#ff3300'; // Red for high cases
+        } else if (confirmed >= 200) {
+          return '#ff6600'; // Orange for moderate cases
+        } else if (confirmed >= 50) {
+          return '#ff9900'; // Light orange for low-moderate cases
+        } else if (confirmed >= 10) {
+          return '#ffcc00'; // Yellow for low cases
         } else {
-          return '#ffcc00'; // Yellow
+          return '#ffff00'; // Light yellow for very low cases
         }
       }
       return 'rgba(0, 100, 0, 0.15)';
